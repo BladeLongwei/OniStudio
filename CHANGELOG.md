@@ -1,9 +1,13 @@
 # Changelog
 
-## v1.29.0 - 8-13-2026
+## v1.29.1 - 8-19-2026
 
+- **Import MP3:** Replacing a segment mix no longer fails with a missing-file error before the upload is written.
 - **Recording stall recovery:** If RTP stalls mid-take (for example mute/unmute), HarborFM keeps large partial MP3s instead of dropping them, skips re-attaching the stalled producer (no flood of empty clips), and promotes leftover `.part` files when the recording ends.
 - **Multi-track Whisper default:** Multi-Track Whisper is off by default. Turn it on per segment in Manage Segment when you want per-host transcripts.
+
+## v1.29.0 - 8-13-2026
+
 - **Multi-track transcripts on workers:** With Offload transcripts to workers enabled, multi-track (per-take) Whisper ASR runs on compute workers in one job instead of only on the API host. If multi-track is eligible and fails, HarborFM no longer silently falls back to mix ASR.
 - **Advanced Editor save:** Saving clips no longer freezes the episode page (Chrome connection pile-up). Preview pauses during save and resumes after. Saves time out after 15 seconds with a clear error instead of hanging.
 - **Time zone picker:** Server timezone, show-cast time zone, and cast profile update use a searchable combobox. Empty cast time zone defaults to the instance timezone.

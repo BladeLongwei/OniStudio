@@ -4,6 +4,7 @@ import { getPodcastOwnerId } from "./access.js";
 import * as audioService from "./audio.js";
 import {
   assertPathUnder,
+  assertResolvedPathUnder,
   pathRelativeToData,
   resolveDataPath,
   segmentPath,
@@ -60,7 +61,8 @@ export async function importSegmentMixAudio(opts: {
     segmentId,
     normalized.ext || "mp3",
   );
-  assertPathUnder(destPath, segmentBase);
+  // Dest does not exist yet; assertPathUnder requires realpath (ENOENT).
+  assertResolvedPathUnder(destPath, segmentBase);
 
   // Move normalized file onto the canonical segment filename.
   if (normalizedPath !== destPath) {
