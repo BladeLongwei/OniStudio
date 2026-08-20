@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.29.0 - 8-13-2026
+
+- **Recording stall recovery:** If RTP stalls mid-take (for example mute/unmute), HarborFM keeps large partial MP3s instead of dropping them, skips re-attaching the stalled producer (no flood of empty clips), and promotes leftover `.part` files when the recording ends.
+- **Multi-track Whisper default:** Multi-Track Whisper is off by default. Turn it on per segment in Manage Segment when you want per-host transcripts.
+- **Multi-track transcripts on workers:** With Offload transcripts to workers enabled, multi-track (per-take) Whisper ASR runs on compute workers in one job instead of only on the API host. If multi-track is eligible and fails, HarborFM no longer silently falls back to mix ASR.
+- **Advanced Editor save:** Saving clips no longer freezes the episode page (Chrome connection pile-up). Preview pauses during save and resumes after. Saves time out after 15 seconds with a clear error instead of hanging.
+- **Time zone picker:** Server timezone, show-cast time zone, and cast profile update use a searchable combobox. Empty cast time zone defaults to the instance timezone.
+- **Review Profile Update:** The review dialog scrolls so the header and actions stay on screen.
+- **RSS feed preview:** Styled public RSS pages keep newest-first episode order (browser view no longer re-sorts dates as text).
+- **Episode live updates:** The episode WebSocket sends ping/pong so the connection stays open through reverse-proxy idle timeouts.
+
 ## v1.28.0 - 8-3-2026
 
 - **Call chat images:** Paste or attach a photo in live call chat. Links in chat open in a new tab. Images stay private to the call and are removed when it ends.

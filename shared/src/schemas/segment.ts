@@ -479,13 +479,18 @@ export type SegmentTracksResponse = z.infer<typeof segmentTracksResponseSchema>;
 /** Body for PUT .../segments/:segmentId/tracks (save clips only). */
 export const segmentTracksPutBodySchema = z.object({
   clips: z.array(segmentTrackClipSchema).min(1),
+  /** Stable id for this Advanced Editor mount (stale-write guard). */
+  editorSessionId: z.string().min(1).max(64),
+  /** Monotonic save attempt counter within the editor session. */
+  saveSeq: z.number().int().positive(),
 });
 
 export type SegmentTracksPutBody = z.infer<typeof segmentTracksPutBodySchema>;
 
 /** Response for PUT .../tracks (save without remake). */
 export const segmentTracksSaveResponseSchema = z.object({
-  clips: z.array(segmentTrackClipSchema),
+  /** Omitted on modern servers; client already has the saved clips. */
+  clips: z.array(segmentTrackClipSchema).optional(),
   timelineDurationMs: z.number(),
   originalBackedUp: z.boolean(),
 });

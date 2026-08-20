@@ -108,9 +108,10 @@ export async function run({ runOne }) {
       if (!saved.originalBackedUp) {
         throw new Error('Expected originalBackedUp true on first save');
       }
-      if (!Array.isArray(saved.clips) || saved.clips.length !== before.clips.length + 1) {
+      const again = await getSegmentTracks(jar, episode.id, seg.id);
+      if (again.clips.length !== before.clips.length + 1) {
         throw new Error(
-          `Expected ${before.clips.length + 1} clips after split, got ${saved.clips?.length}`,
+          `Expected ${before.clips.length + 1} clips after split, got ${again.clips.length}`,
         );
       }
       const mtDir =
@@ -118,10 +119,6 @@ export async function run({ runOne }) {
       const originalPath = join(mtDir, 'tracks_manifest.json.original');
       if (!existsSync(originalPath)) {
         throw new Error('Expected tracks_manifest.json.original after first save');
-      }
-      const again = await getSegmentTracks(jar, episode.id, seg.id);
-      if (again.clips.length !== saved.clips.length) {
-        throw new Error('GET tracks clip count mismatch after save');
       }
       // Second save should not claim another first-time backup
       const saved2 = await saveSegmentTracks(jar, episode.id, seg.id, again.clips);

@@ -31,9 +31,46 @@ export function findMultitrackDir(
 ): string | null {
   const base = join(uploadsDir(podcastId, episodeId), "recordings");
   if (!existsSync(base)) return null;
-  const names = readdirSync(base);
+  return resolveMultitrackDirFromNames(base, segmentId, readdirSync(base));
+}
+
+/** List recording folder names under episode uploads (one readdir). */
+export function listRecordingDirNames(
+  podcastId: string,
+  episodeId: string,
+): string[] {
+  const base = join(uploadsDir(podcastId, episodeId), "recordings");
+  if (!existsSync(base)) return [];
+  return readdirSync(base);
+}
+
+/** Resolve mt dir from a pre-listed recordings/ name list (avoids N readdirs). */
+export function resolveMultitrackDirFromNames(
+  recordingsBase: string,
+  segmentId: string,
+  names: string[],
+): string | null {
   const match = names.find((n) => n === segmentId || n.endsWith(`_${segmentId}`));
-  return match ? join(base, match) : null;
+  return match ? join(recordingsBase, match) : null;
+}
+
+/**
+ * Build segmentId -> absolute mt dir map with a single recordings/ readdir.
+ */
+export function mapMultitrackDirsBySegmentId(
+  podcastId: string,
+  episodeId: string,
+  segmentIds: string[],
+): Map<string, string> {
+  const base = join(uploadsDir(podcastId, episodeId), "recordings");
+  const out = new Map<string, string>();
+  if (!existsSync(base) || segmentIds.length === 0) return out;
+  const names = readdirSync(base);
+  for (const segmentId of segmentIds) {
+    const dir = resolveMultitrackDirFromNames(base, segmentId, names);
+    if (dir) out.set(segmentId, dir);
+  }
+  return out;
 }
 
 function parseJsonField(raw: string | null | undefined): unknown {
@@ -242,7 +279,7 @@ export async function packSegmentIntoDir(
     disabled: seg.disabled,
     hostDuckingEnabled: Boolean(seg.hostDuckingEnabled),
     loudnessTargetingEnabled: seg.loudnessTargetingEnabled !== false,
-    multiTrackWhisperEnabled: seg.multiTrackWhisperEnabled !== false,
+    multiTrackWhisperEnabled: seg.multiTrackWhisperEnabled === true,
     finalGainDb:
       typeof seg.finalGainDb === "number" && Number.isFinite(seg.finalGainDb)
         ? seg.finalGainDb

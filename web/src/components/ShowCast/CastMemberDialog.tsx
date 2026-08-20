@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { useAutoResizeTextarea } from '../../hooks/useAutoResizeTextarea';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   DndContext,
   closestCenter,
@@ -28,6 +28,7 @@ import {
   castPhotoUrl,
   type CastMember,
 } from '../../api/podcasts';
+import { me } from '../../api/auth';
 import {
   CAST_SOCIAL_LINKS_MAX,
   normalizeCastSocialLinks,
@@ -36,7 +37,7 @@ import {
 import { UnsavedChangesConfirmDialog } from '../UnsavedChangesConfirmDialog';
 import { useDialogCloseGuard } from '../../hooks/useDialogCloseGuard';
 import { useBaselineDirty, snapshotForDirty } from '../../hooks/useBaselineDirty';
-import { ianaTimeZoneSelectOptions } from '../../utils/ianaTimeZones';
+import { IanaTimeZoneCombobox } from '../IanaTimeZoneCombobox';
 import sharedStyles from '../PodcastDetail/shared.module.css';
 import localStyles from './ShowCast.module.css';
 
@@ -150,6 +151,8 @@ export function CastMemberDialog({
   onSuccess,
 }: CastMemberDialogProps) {
   const isEdit = !!cast;
+  const { data: meData } = useQuery({ queryKey: ['me'], queryFn: me });
+  const instanceTimeZone = meData?.effectiveTimezone?.trim() || '';
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [role, setRole] = useState<'host' | 'guest'>('guest');
@@ -166,6 +169,7 @@ export function CastMemberDialog({
   const [formBaseline, setFormBaseline] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const wasOpenRef = useRef(false);
 
   useAutoResizeTextarea(descriptionRef, description, { minHeight: 80 });
 
@@ -176,48 +180,61 @@ export function CastMemberDialog({
   );
 
   useEffect(() => {
-    if (open) {
-      setError(null);
-      const socialLinks = Array.isArray(cast?.socialLinks) ? cast.socialLinks : [];
-      const next = cast
-        ? {
-            name: cast.name,
-            nickname: cast.nickname ?? '',
-            role: cast.role as 'host' | 'guest',
-            description: cast.description ?? '',
-            photoUrl: cast.photoUrl ?? '',
-            socialLinks,
-            email: cast.email ?? '',
-            timeZone: cast.timeZone ?? '',
-            isPublic: cast.isPublic ?? 1,
-            coverMode: (cast.photoFilename ? 'upload' : 'url') as 'url' | 'upload',
-          }
-        : {
-            name: '',
-            nickname: '',
-            role: (isFirstEntry ? 'host' : 'guest') as 'host' | 'guest',
-            description: '',
-            photoUrl: '',
-            socialLinks: [] as string[],
-            email: '',
-            timeZone: '',
-            isPublic: 1,
-            coverMode: 'url' as const,
-          };
-      setName(next.name);
-      setNickname(next.nickname);
-      setRole(next.role);
-      setDescription(next.description);
-      setPhotoUrl(next.photoUrl);
-      setSocialLinkRows(rowsFromUrls(next.socialLinks));
-      setEmail(next.email);
-      setTimeZone(next.timeZone);
-      setIsPublic(next.isPublic);
-      setCoverMode(next.coverMode);
-      setPendingFile(null);
-      setFormBaseline(snapshotForDirty(next));
+    if (!open) {
+      wasOpenRef.current = false;
+      return;
     }
-  }, [open, cast, isFirstEntry]);
+    const justOpened = !wasOpenRef.current;
+    wasOpenRef.current = true;
+
+    if (!justOpened) {
+      if (!cast?.timeZone?.trim() && instanceTimeZone) {
+        setTimeZone((prev) => prev || instanceTimeZone);
+      }
+      return;
+    }
+
+    setError(null);
+    const socialLinks = Array.isArray(cast?.socialLinks) ? cast.socialLinks : [];
+    const defaultTimeZone = cast?.timeZone?.trim() || instanceTimeZone || '';
+    const next = cast
+      ? {
+          name: cast.name,
+          nickname: cast.nickname ?? '',
+          role: cast.role as 'host' | 'guest',
+          description: cast.description ?? '',
+          photoUrl: cast.photoUrl ?? '',
+          socialLinks,
+          email: cast.email ?? '',
+          timeZone: defaultTimeZone,
+          isPublic: cast.isPublic ?? 1,
+          coverMode: (cast.photoFilename ? 'upload' : 'url') as 'url' | 'upload',
+        }
+      : {
+          name: '',
+          nickname: '',
+          role: (isFirstEntry ? 'host' : 'guest') as 'host' | 'guest',
+          description: '',
+          photoUrl: '',
+          socialLinks: [] as string[],
+          email: '',
+          timeZone: defaultTimeZone,
+          isPublic: 1,
+          coverMode: 'url' as const,
+        };
+    setName(next.name);
+    setNickname(next.nickname);
+    setRole(next.role);
+    setDescription(next.description);
+    setPhotoUrl(next.photoUrl);
+    setSocialLinkRows(rowsFromUrls(next.socialLinks));
+    setEmail(next.email);
+    setTimeZone(next.timeZone);
+    setIsPublic(next.isPublic);
+    setCoverMode(next.coverMode);
+    setPendingFile(null);
+    setFormBaseline(snapshotForDirty(next));
+  }, [open, cast, isFirstEntry, instanceTimeZone]);
 
   useEffect(() => {
     if (!pendingFile) {
@@ -428,21 +445,16 @@ export function CastMemberDialog({
               <div className={styles.castDialogFormGroup}>
                 <label className={styles.castDialogFormLabel}>
                   Time Zone
-                  <select
+                  <IanaTimeZoneCombobox
                     value={timeZone}
-                    onChange={(e) => setTimeZone(e.target.value)}
-                    className={styles.castDialogFormInput}
-                  >
-                    <option value="">Not set</option>
-                    {ianaTimeZoneSelectOptions(timeZone).map((tz) => (
-                      <option key={tz} value={tz}>
-                        {tz}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={setTimeZone}
+                    emptyLabel="Not set"
+                    aria-label="Time Zone"
+                  />
                 </label>
                 <p className={styles.castDialogHint}>
-                  Used for meeting emails so times show in their local zone. Not shown on public pages.
+                  Used for meeting emails so times show in their local zone. Defaults to the
+                  instance timezone. Not shown on public pages.
                 </p>
               </div>
 

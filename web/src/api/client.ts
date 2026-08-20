@@ -134,3 +134,35 @@ export function apiPut<T>(path: string, json: unknown) {
 export function apiDelete<T>(path: string) {
   return api<T>(path, { method: 'DELETE' });
 }
+
+/** Default client timeout for Advanced Editor save requests. */
+export const SAVE_REQUEST_TIMEOUT_MS = 15_000;
+
+/**
+ * AbortSignal that aborts after `ms`. Prefer platform `AbortSignal.timeout`.
+ */
+export function abortSignalAfter(ms: number): AbortSignal {
+  if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
+    return AbortSignal.timeout(ms);
+  }
+  const ac = new AbortController();
+  const timer = setTimeout(() => {
+    ac.abort();
+  }, ms);
+  ac.signal.addEventListener(
+    'abort',
+    () => {
+      clearTimeout(timer);
+    },
+    { once: true },
+  );
+  return ac.signal;
+}
+
+export function isAbortTimeoutError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  if (err.name === 'TimeoutError') return true;
+  if (err.name === 'AbortError') return true;
+  const msg = err.message.toLowerCase();
+  return msg.includes('timed out') || msg.includes('aborted');
+}

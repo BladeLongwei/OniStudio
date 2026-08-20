@@ -285,6 +285,11 @@ async function asrTakeWindow(opts: {
   startSec: number;
   endSec: number;
   settings: MultiSpeakerSettings;
+  /** Override ASR (e.g. compute-worker offload). */
+  transcribeToEntries?: (
+    audioPath: string,
+    allowedBaseDir: string,
+  ) => Promise<SrtEntry[]>;
 }): Promise<SrtEntry[]> {
   const durationSec = opts.endSec - opts.startSec;
   if (durationSec < 0.05) return [];
@@ -308,11 +313,15 @@ async function asrTakeWindow(opts: {
         `Transcript extract was empty (${opts.startSec.toFixed(1)}s-${opts.endSec.toFixed(1)}s)`,
       );
     }
+    const allowedBase = coversFromStart ? opts.mtDir : tmpdir();
+    if (opts.transcribeToEntries) {
+      return opts.transcribeToEntries(audioPath, allowedBase);
+    }
     // Word timestamps tighten cue starts (Whisper segment starts often include
     // leading silence, which makes mix playback hear the wrong speaker).
     return runTranscriptionToEntries(
       audioPath,
-      coversFromStart ? opts.mtDir : tmpdir(),
+      allowedBase,
       opts.settings as never,
     );
   } finally {
@@ -336,6 +345,10 @@ async function transcribeClipsOnTake(opts: {
   clips: MultitrackSegmentEntry[];
   castLabels: Map<string, string>;
   settings: MultiSpeakerSettings;
+  transcribeToEntries?: (
+    audioPath: string,
+    allowedBaseDir: string,
+  ) => Promise<SrtEntry[]>;
 }): Promise<SrtEntry[]> {
   let takeDurationSec = 0;
   try {
@@ -380,6 +393,7 @@ async function transcribeClipsOnTake(opts: {
             startSec: piece.startSec,
             endSec: piece.endSec,
             settings: opts.settings,
+            transcribeToEntries: opts.transcribeToEntries,
           });
           asrCache.set(cacheKey, cached);
         } catch (err) {
@@ -408,7 +422,8 @@ async function transcribeClipsOnTake(opts: {
 
 /**
  * Build a multi-speaker SRT from included multitrack clips.
- * Returns null when multi-track path should not be used (caller falls back to mix).
+ * Returns null when multi-track is not eligible (caller may use mix ASR).
+ * Throws when multi-track is eligible but produces no cues.
  */
 export async function generateMultiSpeakerSegmentSrt(opts: {
   podcastId: string;
@@ -416,6 +431,11 @@ export async function generateMultiSpeakerSegmentSrt(opts: {
   segmentId: string;
   settings: MultiSpeakerSettings;
   multiTrackWhisperEnabled: boolean;
+  /** Override ASR per extract (e.g. compute-worker offload). */
+  transcribeToEntries?: (
+    audioPath: string,
+    allowedBaseDir: string,
+  ) => Promise<SrtEntry[]>;
 }): Promise<string | null> {
   const mtDir = findMultitrackDir(
     opts.podcastId,
@@ -475,6 +495,7 @@ export async function generateMultiSpeakerSegmentSrt(opts: {
           clips: takeClips,
           castLabels,
           settings: opts.settings,
+          transcribeToEntries: opts.transcribeToEntries,
         })),
       );
     } catch (err) {
@@ -483,8 +504,9 @@ export async function generateMultiSpeakerSegmentSrt(opts: {
   }
 
   if (merged.length === 0) {
-    // Signal caller to fall back to mix ASR.
-    return null;
+    throw new Error(
+      "Multi-track transcription produced no cues from included takes",
+    );
   }
 
   merged.sort(
@@ -546,7 +568,7 @@ export function isSegmentTranscriptStale(opts: {
       ? (manifest!.segments as MultitrackSegmentEntry[])
       : [];
     const included =
-      opts.multiTrackWhisperEnabled !== false
+      opts.multiTrackWhisperEnabled === true
         ? includedTranscriptClips(clips)
         : clips;
     for (const c of included) {

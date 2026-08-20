@@ -60,12 +60,18 @@ export function reorderSegments(episodeId: string, segmentIds: string[]): Promis
   });
 }
 
-export function updateSegment(episodeId: string, segmentId: string, payload: SegmentUpdateBody): Promise<SegmentResponse> {
+export function updateSegment(
+  episodeId: string,
+  segmentId: string,
+  payload: SegmentUpdateBody,
+  opts?: { signal?: AbortSignal },
+): Promise<SegmentResponse> {
   return fetch(`${BASE}/episodes/${episodeId}/segments/${segmentId}`, {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json', ...csrfHeaders() },
     body: JSON.stringify(payload),
+    signal: opts?.signal,
   }).then((r) => {
     if (!r.ok) return r.json().then((err: { error?: string }) => { throw new Error(err.error ?? r.statusText); });
     return r.json();
@@ -266,16 +272,30 @@ export function saveSegmentTracks(
   episodeId: string,
   segmentId: string,
   clips: SegmentTrackClip[],
+  opts: {
+    editorSessionId: string;
+    saveSeq: number;
+    signal?: AbortSignal;
+  },
 ): Promise<SegmentTracksSaveResponse> {
   return fetch(`${BASE}/episodes/${episodeId}/segments/${segmentId}/tracks`, {
     method: 'PUT',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json', ...csrfHeaders() },
-    body: JSON.stringify({ clips }),
+    body: JSON.stringify({
+      clips,
+      editorSessionId: opts.editorSessionId,
+      saveSeq: opts.saveSeq,
+    }),
+    signal: opts.signal,
   }).then((r) => {
     if (!r.ok) {
       return r.json().then((err: { error?: string }) => {
-        throw new Error(err.error ?? r.statusText);
+        const error = new Error(err.error ?? r.statusText) as Error & {
+          status?: number;
+        };
+        error.status = r.status;
+        throw error;
       });
     }
     return r.json();
@@ -307,9 +327,10 @@ export function startApplySegmentTracks(
   segmentId: string,
   clips: SegmentTrackClip[],
 ): Promise<void> {
-  return saveSegmentTracks(episodeId, segmentId, clips).then(() =>
-    startRemakeSegmentTracks(episodeId, segmentId),
-  );
+  return saveSegmentTracks(episodeId, segmentId, clips, {
+    editorSessionId: `legacy-${Date.now()}`,
+    saveSeq: 1,
+  }).then(() => startRemakeSegmentTracks(episodeId, segmentId));
 }
 
 export function getSegmentTracksApplyStatus(

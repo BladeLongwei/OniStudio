@@ -37,7 +37,7 @@ import { recoverRecordedSegment } from "../../services/segmentFromRecording.js";
 import { redactSegmentForClient } from "../../utils/segment.js";
 import * as repo from "./repo.js";
 import { ALLOWED_MIME, transcriptPath, waveformPath } from "./utils.js";
-import { findMultitrackDir } from "../episodes/projectSegmentPack.js";
+import { findMultitrackDir, mapMultitrackDirsBySegmentId } from "../episodes/projectSegmentPack.js";
 import {
   getHostDuckingJobStatus,
   startHostDuckingJob,
@@ -51,14 +51,19 @@ import { canBootstrapAdvancedEditorFromMix } from "../../services/bootstrapSegme
 import { workerApiBaseFromRequest } from "../workers/index.js";
 import { join } from "path";
 
+function segmentHasOriginalTracksManifestAt(mtDir: string | null): boolean {
+  if (!mtDir) return false;
+  return existsSync(join(mtDir, TRACKS_MANIFEST_ORIGINAL_NAME));
+}
+
 function segmentHasOriginalTracksManifest(
   podcastId: string,
   episodeId: string,
   segmentId: string,
 ): boolean {
-  const mtDir = findMultitrackDir(podcastId, episodeId, segmentId);
-  if (!mtDir) return false;
-  return existsSync(join(mtDir, TRACKS_MANIFEST_ORIGINAL_NAME));
+  return segmentHasOriginalTracksManifestAt(
+    findMultitrackDir(podcastId, episodeId, segmentId),
+  );
 }
 
 export async function registerCoreRoutes(app: FastifyInstance) {
@@ -94,24 +99,26 @@ export async function registerCoreRoutes(app: FastifyInstance) {
       if (!access)
         return reply.status(404).send({ error: "Episode not found" });
       const rows = repo.listSegmentsForEpisode(episodeId);
+      const mtDirs = mapMultitrackDirsBySegmentId(
+        access.podcastId,
+        episodeId,
+        rows.map((r) => r.id),
+      );
       const segments = rows.map((row) => {
         const audio = repo.getSegmentAudioPath(row, access.podcastId, episodeId);
         const waveformExists =
           audio && existsSync(audio.path)
             ? existsSync(waveformPath(audio.path))
             : false;
-        const hasRecordings = Boolean(
-          findMultitrackDir(access.podcastId, episodeId, row.id),
-        );
-        const hasOriginalTracksManifest = segmentHasOriginalTracksManifest(
-          access.podcastId,
-          episodeId,
-          row.id,
-        );
+        const mtDir = mtDirs.get(row.id) ?? null;
+        const hasRecordings = Boolean(mtDir);
+        const hasOriginalTracksManifest =
+          segmentHasOriginalTracksManifestAt(mtDir);
         const canBootstrapAdvancedEditor = canBootstrapAdvancedEditorFromMix(
           access.podcastId,
           episodeId,
           row as Record<string, unknown>,
+          mtDir,
         );
         return redactSegmentForClient({
           ...row,

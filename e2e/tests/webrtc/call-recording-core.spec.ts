@@ -473,17 +473,35 @@ test.describe('Call recording core', () => {
       const manifest = JSON.parse(readFileSync(join(mtDir!, 'tracks_manifest.json'), 'utf8'));
       expect(Array.isArray(manifest.segments)).toBe(true);
 
-      const micSegments = (manifest.segments as Array<{ producerId?: string; source?: string; participantName?: string }>)
-        .filter((s) => s.source !== 'soundboard');
+      const micSegments = (manifest.segments as Array<{
+        producerId?: string;
+        source?: string;
+        participantName?: string;
+        lengthMs?: number;
+        filePath?: string;
+      }>).filter((s) => s.source !== 'soundboard');
       const guestMicSegments = micSegments.filter((s) => s.participantName === 'E2E Guest');
       expect(
         guestMicSegments.length,
         `Expected 2+ guest mic segments after mute/unmute (new producer per resume); got ${JSON.stringify(guestMicSegments)}`,
       ).toBeGreaterThanOrEqual(2);
       expect(
+        guestMicSegments.length,
+        `Stall re-attach must not flood empty takes; got ${guestMicSegments.length} guest mic segments`,
+      ).toBeLessThanOrEqual(4);
+      expect(
         new Set(guestMicSegments.map((s) => s.producerId)).size,
         'Guest should use a new producer after unmute so the gap stays silent in the mix',
       ).toBeGreaterThanOrEqual(2);
+      for (const seg of guestMicSegments) {
+        expect(seg.lengthMs ?? 0, `guest take ${seg.filePath} should have real duration`).toBeGreaterThan(500);
+        const base = (seg.filePath ?? '').split('/').pop();
+        if (base) {
+          const fullPath = join(mtDir!, base);
+          expect(existsSync(fullPath)).toBe(true);
+          expect(statSync(fullPath).size, `guest take ${base} should not be an empty stub`).toBeGreaterThan(1024);
+        }
+      }
     } finally {
       await guestContext.close();
     }

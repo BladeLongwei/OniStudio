@@ -21,6 +21,9 @@ import {
   resolveTakeAudioAbsPath,
   saveSegmentTracksClips,
   startRemakeSegmentTracksJob,
+  TracksSaveConflictError,
+  TracksSaveTimeoutError,
+  TRACKS_SAVE_TIMEOUT_MS,
 } from "../../services/applySegmentClipsRemake.js";
 import {
   BootstrapMultitrackError,
@@ -358,8 +361,10 @@ export async function registerTracksRoutes(app: FastifyInstance) {
           type: "object",
           properties: {
             clips: { type: "array", items: { type: "object" } },
+            editorSessionId: { type: "string" },
+            saveSeq: { type: "integer", minimum: 1 },
           },
-          required: ["clips"],
+          required: ["clips", "editorSessionId", "saveSeq"],
         },
       },
     },
@@ -395,19 +400,31 @@ export async function registerTracksRoutes(app: FastifyInstance) {
         });
       }
       try {
-        const saved = saveSegmentTracksClips({
+        const deadlineMs = Date.now() + TRACKS_SAVE_TIMEOUT_MS;
+        const saved = await saveSegmentTracksClips({
           podcastId: access.podcastId,
           episodeId,
           segmentId,
           clips: bodyParsed.data.clips,
+          editorSessionId: bodyParsed.data.editorSessionId,
+          saveSeq: bodyParsed.data.saveSeq,
+          deadlineMs,
+          isAborted: () => Boolean(request.raw.aborted),
         });
-        broadcastToEpisode(episodeId, { type: "segmentUpdated", segmentId });
+        // No episode broadcast: clip-layout save does not change the segment list,
+        // and segmentUpdated was forcing GET /segments on the saver (via WebSocket)
+        // while the PUT response was still in flight, exhausting browser connections.
         return reply.send({
-          clips: saved.clips,
           timelineDurationMs: saved.timelineDurationMs,
           originalBackedUp: saved.originalBackedUp,
         });
       } catch (err: unknown) {
+        if (err instanceof TracksSaveConflictError) {
+          return reply.status(409).send({ error: err.message });
+        }
+        if (err instanceof TracksSaveTimeoutError) {
+          return reply.status(504).send({ error: err.message });
+        }
         const message =
           err instanceof Error && err.message ? err.message : "Failed to save clips";
         const safe =

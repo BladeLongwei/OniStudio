@@ -850,6 +850,7 @@ export async function importProjectZip(
           disabled: Boolean(segMeta.disabled),
           hostDuckingEnabled: Boolean(segMeta.hostDuckingEnabled),
           loudnessTargetingEnabled: segMeta.loudnessTargetingEnabled !== false,
+          multiTrackWhisperEnabled: segMeta.multiTrackWhisperEnabled === true,
           finalGainDb:
             typeof segMeta.finalGainDb === "number" &&
             Number.isFinite(segMeta.finalGainDb)

@@ -4,6 +4,8 @@ import { episodeWebSocketUrl } from '../api/episodeWs';
 
 const MAX_RECONNECT_DELAY_MS = 30_000;
 const INITIAL_RECONNECT_DELAY_MS = 1000;
+/** Keep episode WS alive through reverse-proxy idle timeouts. */
+const PING_INTERVAL_MS = 25_000;
 
 /** Check if session is still valid. Returns true if auth ok, false if 401. */
 async function checkAuth(): Promise<boolean> {
@@ -22,6 +24,7 @@ export function useEpisodeWebSocket(
   const queryClient = useQueryClient();
   const reconnectDelayRef = useRef(INITIAL_RECONNECT_DELAY_MS);
   const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (!episodeId || !podcastId) return;
@@ -29,10 +32,34 @@ export function useEpisodeWebSocket(
     let closed = false;
     let ws: WebSocket | null = null;
 
+    function clearPing() {
+      if (pingIntervalRef.current) {
+        clearInterval(pingIntervalRef.current);
+        pingIntervalRef.current = null;
+      }
+    }
+
+    function startPing(socket: WebSocket) {
+      clearPing();
+      pingIntervalRef.current = setInterval(() => {
+        if (socket.readyState === WebSocket.OPEN) {
+          try {
+            socket.send(JSON.stringify({ type: 'ping' }));
+          } catch {
+            // ignore
+          }
+        }
+      }, PING_INTERVAL_MS);
+    }
+
     function connect() {
       if (closed) return;
       const url = episodeWebSocketUrl(episodeId!);
       ws = new WebSocket(url);
+
+      ws.onopen = () => {
+        if (ws) startPing(ws);
+      };
 
       ws.onmessage = (event) => {
         try {
@@ -46,6 +73,7 @@ export function useEpisodeWebSocket(
             recordingInProgress?: boolean;
           };
           const t = msg.type;
+          if (t === 'pong' || t === 'ping') return;
 
           switch (t) {
             case 'callStarted':
@@ -100,6 +128,16 @@ export function useEpisodeWebSocket(
                   }),
                 );
                 queryClient.invalidateQueries({ queryKey: ['call-session', episodeId] });
+              }
+              break;
+            }
+            case 'segmentTracksSaved': {
+              // Optional: other clients with Advanced Editor open for this segment.
+              const trackMsg = msg as { segmentId?: string };
+              if (typeof trackMsg.segmentId === 'string' && trackMsg.segmentId) {
+                queryClient.invalidateQueries({
+                  queryKey: ['segment-tracks', episodeId, trackMsg.segmentId],
+                });
               }
               break;
             }
@@ -162,6 +200,7 @@ export function useEpisodeWebSocket(
       };
 
       ws.onclose = () => {
+        clearPing();
         ws = null;
         if (closed) return;
         checkAuth().then((authOk) => {
@@ -192,6 +231,7 @@ export function useEpisodeWebSocket(
 
     return () => {
       closed = true;
+      clearPing();
       if (reconnectTimeoutRef.current) {
         clearTimeout(reconnectTimeoutRef.current);
         reconnectTimeoutRef.current = null;

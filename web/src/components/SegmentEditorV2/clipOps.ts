@@ -50,14 +50,27 @@ export function toEditorClips(clips: SegmentTrackClip[]): EditorClip[] {
 export function toApiClips(clips: EditorClip[]): SegmentTrackClip[] {
   return clips.map(({ uiId, ...rest }) => {
     void uiId;
+    const {
+      reaEqChunkBase64: _eq,
+      reaGateChunkBase64: _gate,
+      reaCompChunkBase64: _comp,
+      ...slim
+    } = rest as SegmentTrackClip & {
+      reaEqChunkBase64?: string;
+      reaGateChunkBase64?: string;
+      reaCompChunkBase64?: string;
+    };
+    void _eq;
+    void _gate;
+    void _comp;
     return {
-      ...rest,
-      segmentId: rest.segmentId || uiId,
-      startMs: clipStartMs(rest),
-      lengthMs: clipLengthMs(rest),
-      endMs: clipEndMs(rest),
-      sourceOffsetMs: sourceOffsetMsOf(rest),
-      filePath: rest.filePath,
+      ...slim,
+      segmentId: slim.segmentId || uiId,
+      startMs: clipStartMs(slim),
+      lengthMs: clipLengthMs(slim),
+      endMs: clipEndMs(slim),
+      sourceOffsetMs: sourceOffsetMsOf(slim),
+      filePath: slim.filePath,
     };
   });
 }

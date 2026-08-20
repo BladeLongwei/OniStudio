@@ -1,6 +1,7 @@
 import { spawn, type ChildProcess } from "child_process";
 import { existsSync, mkdirSync, renameSync, statSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "path";
+import { RECOVERY_SIZE_THRESHOLD } from "./segmentMetadata.js";
 
 type StreamSpec = { rtpPort: number; rtcpPort: number; payloadType: number };
 
@@ -27,9 +28,53 @@ export type SegmentRecorderOptions = {
   recordingDirName: string;
 };
 
+export type SegmentStopResult = {
+  success: boolean;
+  filePath: string | null;
+  /** True when a large .part was kept despite a non-zero FFmpeg exit. */
+  recovered?: boolean;
+};
+
 /**
- * SegmentRecorder: RTP to MP3 per producer. Writes to .mp3.part, renames to .mp3 on clean stop.
+ * Promote .mp3.part to .mp3 when large enough. Used by stop() and end-of-recording salvage.
+ * Returns the relative path under RECORDING_DATA_DIR, or null if not promoted.
+ */
+export function promotePartIfLarge(
+  partPath: string,
+  finalPath: string,
+  recordingDirName: string,
+  segmentId: string,
+  minBytes: number = RECOVERY_SIZE_THRESHOLD,
+): string | null {
+  if (!existsSync(partPath)) return null;
+  let size = 0;
+  try {
+    size = statSync(partPath).size;
+  } catch {
+    return null;
+  }
+  if (size < minBytes) return null;
+  try {
+    if (existsSync(finalPath)) {
+      // Prefer existing finalized file; drop the leftover part.
+      try {
+        unlinkSync(partPath);
+      } catch {
+        /* ignore */
+      }
+      return `recordings/${recordingDirName}/segment_${segmentId}.mp3`;
+    }
+    renameSync(partPath, finalPath);
+    return `recordings/${recordingDirName}/segment_${segmentId}.mp3`;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * SegmentRecorder: RTP to MP3 per producer. Writes to .mp3.part, renames to .mp3 on stop.
  * Uses SDP temp file so stdin stays available for graceful shutdown ('q' command).
+ * Large .part files are kept even when FFmpeg exits non-zero (stall / rw_timeout).
  */
 export class SegmentRecorder {
   private ffmpeg: ChildProcess | null = null;
@@ -87,15 +132,34 @@ export class SegmentRecorder {
     return ff;
   }
 
+  private tryPromote(exitCode: number | null): SegmentStopResult {
+    const rel = promotePartIfLarge(
+      this.partPath,
+      this.finalPath,
+      this.options.recordingDirName,
+      this.options.segmentId,
+    );
+    if (rel) {
+      return {
+        success: true,
+        filePath: rel,
+        // Non-zero or missing exit (already dead / no handle) means we salvaged the .part.
+        recovered: exitCode !== 0,
+      };
+    }
+    return { success: false, filePath: null };
+  }
+
   /**
-   * Stop recording: send 'q' to stdin for graceful flush, fallback to SIGINT. Rename .part to .mp3 on success.
+   * Stop recording: send 'q' to stdin for graceful flush, fallback to SIGINT.
+   * Promotes a large .part even when FFmpeg exit code is non-zero.
    */
-  stop(graceMs: number): Promise<{ success: boolean; filePath: string | null }> {
+  stop(graceMs: number): Promise<SegmentStopResult> {
     return new Promise((resolve) => {
       const ff = this.ffmpeg;
       this.ffmpeg = null;
       if (!ff) {
-        resolve({ success: false, filePath: null });
+        resolve(this.tryPromote(null));
         return;
       }
 
@@ -107,6 +171,13 @@ export class SegmentRecorder {
         }
       };
 
+      // Process already exited (rw_timeout / stall): close never fires again.
+      if (ff.exitCode !== null || ff.killed) {
+        cleanupSdp();
+        resolve(this.tryPromote(ff.exitCode));
+        return;
+      }
+
       const timeout = setTimeout(() => {
         try {
           ff.kill("SIGKILL");
@@ -114,23 +185,13 @@ export class SegmentRecorder {
           /* ignore */
         }
         cleanupSdp();
-        resolve({ success: false, filePath: null });
+        resolve(this.tryPromote(-1));
       }, graceMs);
 
       ff.once("close", (code) => {
         clearTimeout(timeout);
         cleanupSdp();
-        if (code === 0 && existsSync(this.partPath) && statSync(this.partPath).size > 0) {
-          try {
-            renameSync(this.partPath, this.finalPath);
-            const rel = `recordings/${this.options.recordingDirName}/segment_${this.options.segmentId}.mp3`;
-            resolve({ success: true, filePath: rel });
-          } catch {
-            resolve({ success: false, filePath: null });
-          }
-        } else {
-          resolve({ success: false, filePath: null });
-        }
+        resolve(this.tryPromote(code));
       });
 
       if (ff.stdin?.writable) {

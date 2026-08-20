@@ -1,12 +1,17 @@
 import type { Router, Producer, Consumer, PlainTransport } from "mediasoup/types";
 import type { ChildProcess } from "child_process";
 import { spawn } from "child_process";
-import { existsSync, mkdirSync, statSync } from "fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync } from "fs";
 import { join, dirname, basename } from "path";
 import { nanoid } from "nanoid";
 import type { RecordingMeta } from "./recordingTypes.js";
-import { SegmentRecorder } from "./SegmentRecorder.js";
-import { appendSegmentLog } from "./segmentMetadata.js";
+import { promotePartIfLarge, SegmentRecorder } from "./SegmentRecorder.js";
+import {
+  appendSegmentLog,
+  RECOVERY_SIZE_THRESHOLD,
+  type SegmentLogLine,
+} from "./segmentMetadata.js";
+import { isSafeFileName } from "../validation.js";
 
 export type RoomState = {
   router: Router;
@@ -297,6 +302,7 @@ export class RecordingManager {
         status: "FINALIZED",
         endMs,
         filePath: result.filePath,
+        ...(result.recovered ? { recovered: true } : {}),
       });
     } else {
       appendSegmentLog(state.jsonlPath, {
@@ -305,6 +311,96 @@ export class RecordingManager {
         status: "INTERRUPTED",
         endMs,
       });
+    }
+  }
+
+  /**
+   * Promote leftover large .mp3.part files in the episode dir into finalizedSegments.
+   * Covers INTERRUPTED takes that left audio on disk (stall + rw_timeout race).
+   */
+  salvageLeftoverPartFiles(state: RecordingState): void {
+    const dir = state.episodeDir;
+    if (!existsSync(dir)) return;
+    const recordingDirName = basename(dir);
+    const known = new Set(state.finalizedSegments.map((s) => s.segmentId));
+    let files: string[] = [];
+    try {
+      files = readdirSync(dir);
+    } catch {
+      return;
+    }
+
+    const logBySegment = new Map<string, SegmentLogLine>();
+    if (existsSync(state.jsonlPath)) {
+      try {
+        const content = readFileSync(state.jsonlPath, "utf8");
+        for (const line of content.trim().split("\n").filter(Boolean)) {
+          try {
+            const obj = JSON.parse(line) as SegmentLogLine;
+            if (obj.segmentId) logBySegment.set(obj.segmentId, obj);
+          } catch {
+            /* skip */
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+
+    for (const f of files) {
+      if (!isSafeFileName(f) || !f.startsWith("segment_") || !f.endsWith(".mp3.part")) {
+        continue;
+      }
+      const match = f.match(/^segment_(.+)\.mp3\.part$/);
+      const segmentId = match?.[1];
+      if (!segmentId || known.has(segmentId)) continue;
+
+      const partPath = join(dir, f);
+      const finalPath = join(dir, `segment_${segmentId}.mp3`);
+      let size = 0;
+      try {
+        size = statSync(partPath).size;
+      } catch {
+        continue;
+      }
+      if (size < RECOVERY_SIZE_THRESHOLD) continue;
+
+      const rel = promotePartIfLarge(partPath, finalPath, recordingDirName, segmentId);
+      if (!rel) continue;
+
+      const log = logBySegment.get(segmentId);
+      const producerId = log?.producerId ?? "unknown";
+      const startMs =
+        typeof log?.startMs === "number" && log.startMs >= 0 ? log.startMs : 0;
+      const startedAt = state.recordingStartedAt + startMs;
+      const endMs =
+        typeof log?.endMs === "number" && log.endMs >= startMs
+          ? log.endMs
+          : Date.now() - state.recordingStartedAt;
+      const endedAt = state.recordingStartedAt + endMs;
+
+      state.finalizedSegments.push({
+        segmentId,
+        producerId,
+        filePathRelative: rel,
+        startedAt,
+        endedAt,
+      });
+      known.add(segmentId);
+      appendSegmentLog(state.jsonlPath, {
+        segmentId,
+        producerId,
+        status: "FINALIZED",
+        endMs,
+        filePath: rel,
+        recovered: true,
+      });
+      console.warn(
+        "[webrtc] Salvaged leftover part segmentId=%s size=%d file=%s",
+        segmentId,
+        size,
+        rel,
+      );
     }
   }
 
@@ -318,6 +414,7 @@ export class RecordingManager {
     events?: Array<{ event: string; assetId?: string; clientTimestampMs?: number; durationSec?: number }>,
     recordingEndedAtMs?: number,
   ): Promise<void> {
+    this.salvageLeftoverPartFiles(state);
     const allSegments = [...state.finalizedSegments];
     if (allSegments.length === 0) {
       doCallback(false);

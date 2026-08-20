@@ -117,6 +117,7 @@ import * as m115 from "./migrations/115_segment_multi_track_whisper.js";
 import * as m116 from "./migrations/116_cast_profile_self_update.js";
 import * as m117 from "./migrations/117_cast_time_zone.js";
 import * as m118 from "./migrations/118_show_notes_guest_visible_default.js";
+import * as m119 from "./migrations/119_multi_track_whisper_default_off.js";
 import { syncServerThemesFromDisk } from "../modules/themes/builtins.js";
 
 const migrations = [
@@ -238,6 +239,7 @@ const migrations = [
   { name: "116_cast_profile_self_update", ...m116 },
   { name: "117_cast_time_zone", ...m117 },
   { name: "118_show_notes_guest_visible_default", ...m118 },
+  { name: "119_multi_track_whisper_default_off", ...m119 },
 ];
 
 const MIGRATIONS_TABLE = `

@@ -21,6 +21,7 @@ import {
 } from "../../services/paths.js";
 import { EXT_DOT_TO_MIMETYPE } from "../../utils/artwork.js";
 import { absoluteOrigin } from "../call/meetingMail.js";
+import { getAppTimeZone } from "../../utils/datetime.js";
 import { notifyHostsOfCastProfilePending } from "./notify.js";
 import {
   castPendingPhotoDir,
@@ -87,7 +88,7 @@ function formDefaults(
       nickname: pending.nickname,
       description: pending.description,
       socialLinks: pendingSocialLinks(pending),
-      timeZone: pending.timeZone?.trim() || null,
+      timeZone: pending.timeZone?.trim() || getAppTimeZone(),
       photoUrl: pending.photoPath
         ? `/${API_PREFIX}/public/cast-profile-update/photo?token=${enc}&source=pending&v=${pendingPhotoVersion}`
         : cast.photoPath || cast.photoUrl
@@ -101,7 +102,7 @@ function formDefaults(
     nickname: cast.nickname,
     description: cast.description,
     socialLinks: parseCastSocialLinks(cast.socialLinks),
-    timeZone: cast.timeZone?.trim() || null,
+    timeZone: cast.timeZone?.trim() || getAppTimeZone(),
     photoUrl:
       cast.photoPath || cast.photoUrl
         ? `/${API_PREFIX}/public/cast-profile-update/photo?token=${enc}&source=current`

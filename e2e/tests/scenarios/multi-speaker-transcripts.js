@@ -197,34 +197,16 @@ export async function run({ runOne }) {
   );
 
   results.push(
-    await runOne('multiTrackWhisperEnabled defaults on and can disable', async () => {
+    await runOne('multiTrackWhisperEnabled defaults off and can enable', async () => {
       const listRes = await apiFetch(`/episodes/${episode.id}/segments`, {}, jar);
       if (!listRes.ok) throw new Error(`List segments: ${listRes.status}`);
       const list = await listRes.json();
       const row = (list.segments || []).find((s) => s.id === seg.id);
       if (!row) throw new Error('Segment missing from list');
-      if (row.multiTrackWhisperEnabled === false) {
-        throw new Error('Expected multiTrackWhisperEnabled default true');
+      if (row.multiTrackWhisperEnabled === true) {
+        throw new Error('Expected multiTrackWhisperEnabled default false');
       }
       const patch = await apiFetch(
-        `/episodes/${episode.id}/segments/${seg.id}`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ multiTrackWhisperEnabled: false }),
-        },
-        jar,
-      );
-      if (!patch.ok) {
-        throw new Error(`PATCH segment: ${patch.status} ${await patch.text()}`);
-      }
-      const list2 = await (await apiFetch(`/episodes/${episode.id}/segments`, {}, jar)).json();
-      const row2 = (list2.segments || []).find((s) => s.id === seg.id);
-      if (row2?.multiTrackWhisperEnabled !== false) {
-        throw new Error('Expected multiTrackWhisperEnabled false after PATCH');
-      }
-      // Restore default for later stitch tests
-      await apiFetch(
         `/episodes/${episode.id}/segments/${seg.id}`,
         {
           method: 'PATCH',
@@ -233,6 +215,15 @@ export async function run({ runOne }) {
         },
         jar,
       );
+      if (!patch.ok) {
+        throw new Error(`PATCH segment: ${patch.status} ${await patch.text()}`);
+      }
+      const list2 = await (await apiFetch(`/episodes/${episode.id}/segments`, {}, jar)).json();
+      const row2 = (list2.segments || []).find((s) => s.id === seg.id);
+      if (row2?.multiTrackWhisperEnabled !== true) {
+        throw new Error('Expected multiTrackWhisperEnabled true after PATCH');
+      }
+      // Keep enabled for later multi-speaker stitch tests
     }),
   );
 

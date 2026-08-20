@@ -6,7 +6,8 @@ import { isSafeDirectoryName, isSafeFileName } from "../validation.js";
 /** Segment IDs must match nanoid-style pattern for safe log output. */
 const SAFE_ID = /^[a-zA-Z0-9_-]+$/;
 
-const RECOVERY_SIZE_THRESHOLD = 16384;
+/** Min .mp3.part size (bytes) to promote on stop / startup recovery. Tiny stubs stay discarded. */
+export const RECOVERY_SIZE_THRESHOLD = 16384;
 
 export function appendSegmentLog(jsonlPath: string, line: Record<string, unknown>): void {
   appendFileSync(jsonlPath, JSON.stringify(line) + "\n");

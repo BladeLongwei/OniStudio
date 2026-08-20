@@ -46,6 +46,25 @@ export async function episodeCollaborationRoutes(
         unsubscribeEpisode(socket);
       };
 
+      socket.on("message", (raw) => {
+        let msg: { type?: string };
+        try {
+          msg = JSON.parse(String(raw)) as { type?: string };
+        } catch {
+          return;
+        }
+        // Keep alive through reverse-proxy idle timeouts (Caddy/nginx).
+        if (msg.type === "ping") {
+          if (socket.readyState === 1) {
+            try {
+              socket.send(JSON.stringify({ type: "pong" }));
+            } catch {
+              // ignore
+            }
+          }
+        }
+      });
+
       socket.on("close", handleClose);
       socket.on("error", handleClose);
     },

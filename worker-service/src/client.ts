@@ -14,6 +14,7 @@ import type { ClientMessage, ServerMessage } from "./protocol.js";
 import { downloadJobFile, uploadJobFile } from "./transfer.js";
 import { ensureInputHasExtension } from "./ensureInputExt.js";
 import { runTranscribeJob } from "./jobs/transcribe.js";
+import { runTranscribeMultiJob } from "./jobs/transcribeMulti.js";
 import { runVideoJob } from "./jobs/videoGenerationCore.js";
 import {
   runEpisodeRenderWorkerJob,
@@ -218,10 +219,19 @@ async function handleMessage(ws: WebSocket, msg: ServerMessage): Promise<void> {
 
     const outputPaths = new Map<string, string>();
     if (msg.kind === "transcribe") {
-      const audio = inputPaths.get("audio");
-      if (!audio) throw new Error("Missing audio input");
       const out = join(workDir, "transcript.srt");
-      await runTranscribeJob(audio, out);
+      if (msg.params?.mode === "multi") {
+        await runTranscribeMultiJob({
+          workDir,
+          inputPaths,
+          outPath: out,
+          params: msg.params,
+        });
+      } else {
+        const audio = inputPaths.get("audio");
+        if (!audio) throw new Error("Missing audio input");
+        await runTranscribeJob(audio, out);
+      }
       assertNotCancelled();
       outputPaths.set("transcript.srt", out);
     } else if (msg.kind === "video_generate") {

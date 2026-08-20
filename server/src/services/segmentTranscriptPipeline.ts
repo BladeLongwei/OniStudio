@@ -6,9 +6,9 @@ import { dirname } from "path";
 import type { MultiSpeakerSettings } from "./multiSpeakerTranscript.js";
 import {
   applySoftTrimsToSrtEntries,
-  generateMultiSpeakerSegmentSrt,
   isSegmentTranscriptStale,
 } from "./multiSpeakerTranscript.js";
+import { generateMultiSpeakerSegmentSrtWithOptionalWorker } from "./multiSpeakerTranscriptWorker.js";
 import {
   formatSrtEntries,
   formatSrtTime,
@@ -21,6 +21,8 @@ import {
 } from "../modules/segments/utils.js";
 import * as repo from "../modules/segments/repo.js";
 import { findMultitrackDir } from "../modules/episodes/projectSegmentPack.js";
+import type { WorkerJobSubject } from "../modules/workers/subject.js";
+import { transcribeAudioViaWorkerOrLocal } from "./workerTranscription.js";
 
 function parseTrimRangesField(
   raw: unknown,
@@ -59,8 +61,16 @@ export function effectiveSegmentDurationSec(
   return Math.max(0, durationSec - trimmed);
 }
 
+export type SegmentTranscriptWorkerOpts = {
+  apiBase: string;
+  subject?: WorkerJobSubject | null;
+  userId?: string | null;
+};
+
 /**
  * Generate segment transcript (multi-track when eligible) and write sidecar.
+ * When worker is set, multi-track uses ONE job that transfers all take files;
+ * mix ASR is used only when multi-track is not eligible (not as a failure fallback).
  */
 export async function generateSegmentTranscriptFile(opts: {
   podcastId: string;
@@ -72,30 +82,41 @@ export async function generateSegmentTranscriptFile(opts: {
   multiTrackWhisperEnabled: boolean;
   trimRanges?: unknown;
   durationSec?: number;
+  /** Offload ASR to compute workers (one job for multi-track, one for mix). */
+  worker?: SegmentTranscriptWorkerOpts | null;
 }): Promise<void> {
   const txtPath = transcriptPath(opts.audioPath);
   mkdirSync(dirname(txtPath), { recursive: true });
 
-  let multi: string | null = null;
-  if (opts.multiTrackWhisperEnabled !== false) {
-    try {
-      multi = await generateMultiSpeakerSegmentSrt({
-        podcastId: opts.podcastId,
-        episodeId: opts.episodeId,
-        segmentId: opts.segmentId,
-        settings: opts.settings,
-        multiTrackWhisperEnabled: true,
-      });
-    } catch (err) {
-      console.error(
-        "[transcript] Multi-track Whisper failed; falling back to mix ASR",
-        err,
-      );
-      multi = null;
+  if (opts.multiTrackWhisperEnabled === true) {
+    const multi = await generateMultiSpeakerSegmentSrtWithOptionalWorker({
+      podcastId: opts.podcastId,
+      episodeId: opts.episodeId,
+      segmentId: opts.segmentId,
+      settings: opts.settings,
+      multiTrackWhisperEnabled: true,
+      apiBase: opts.worker?.apiBase,
+      userId: opts.worker?.userId,
+      subject: opts.worker?.subject,
+      useWorker: Boolean(opts.worker),
+    });
+    // null = not eligible (e.g. fewer than two speakers); fall through to mix.
+    if (multi != null) {
+      writeFileSync(txtPath, multi, "utf-8");
+      return;
     }
   }
-  if (multi && multi.trim()) {
-    writeFileSync(txtPath, multi, "utf-8");
+  if (opts.worker) {
+    const text = await transcribeAudioViaWorkerOrLocal(
+      opts.audioPath,
+      opts.audioBase,
+      {
+        apiBase: opts.worker.apiBase,
+        settings: opts.settings,
+        subject: opts.worker.subject,
+      },
+    );
+    writeFileSync(txtPath, text, "utf-8");
     return;
   }
   const text = await runTranscription(
@@ -126,7 +147,7 @@ export function episodeTranscriptNeedsAsr(
     if (!audio || !existsSync(audio.path)) continue;
     anyAudio = true;
     const txtPath = transcriptPath(audio.path);
-    const mtEnabled = seg.multiTrackWhisperEnabled !== false;
+    const mtEnabled = seg.multiTrackWhisperEnabled === true;
     if (
       isSegmentTranscriptStale({
         podcastId,
@@ -153,6 +174,7 @@ export async function stitchEpisodeTranscriptFromSegments(opts: {
   episodeId: string;
   settings: MultiSpeakerSettings;
   onProgress?: (message: string) => void;
+  worker?: SegmentTranscriptWorkerOpts | null;
 }): Promise<string | null> {
   const segments = repo.listSegmentsForEpisode(opts.episodeId);
   const parts: Array<{ entries: SrtEntry[]; offsetSec: number; durationSec: number }> =
@@ -174,7 +196,7 @@ export async function stitchEpisodeTranscriptFromSegments(opts: {
     const trimRanges = parseTrimRangesField(seg.trimRanges, durationSec);
     const effective = effectiveSegmentDurationSec(durationSec, trimRanges);
     const txtPath = transcriptPath(audio.path);
-    const mtEnabled = seg.multiTrackWhisperEnabled !== false;
+    const mtEnabled = seg.multiTrackWhisperEnabled === true;
 
     const stale = isSegmentTranscriptStale({
       podcastId: opts.podcastId,
@@ -200,6 +222,7 @@ export async function stitchEpisodeTranscriptFromSegments(opts: {
         multiTrackWhisperEnabled: mtEnabled,
         trimRanges: seg.trimRanges,
         durationSec,
+        worker: opts.worker,
       });
     }
 

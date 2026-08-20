@@ -55,6 +55,7 @@ export function createRecordingSegmentPlaceholder(
       durationSec: 0,
       inProgress: true,
       recordFailed: false,
+      multiTrackWhisperEnabled: false,
     })
     .run();
 
@@ -290,6 +291,7 @@ export async function createSegmentFromPath(
           name: segmentName,
           audioPath: relPath,
           durationSec,
+          multiTrackWhisperEnabled: false,
         })
         .run();
     }

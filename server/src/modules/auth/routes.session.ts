@@ -14,6 +14,7 @@ import {
   MAX_API_KEYS_PER_USER,
   TWOFA_CHALLENGE_COOKIE_NAME,
 } from "../../config.js";
+import { getAppTimeZone } from "../../utils/datetime.js";
 
 export async function registerSessionRoutes(app: FastifyInstance) {
   app.post(
@@ -165,6 +166,7 @@ export async function registerSessionRoutes(app: FastifyInstance) {
       return {
         id: user.id,
         needsCompleteAccount,
+        effectiveTimezone: getAppTimeZone(),
         twoFactor: twoFactorMethod
           ? { hasTOTP, hasEmail, methods: twoFactorMethod }
           : null,

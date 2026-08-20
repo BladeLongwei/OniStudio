@@ -31,7 +31,7 @@ import {
   type CastMember,
 } from '../../api/podcasts';
 import { resizeCastProfilePhoto } from '../../utils/resizeCastProfilePhoto';
-import { ianaTimeZoneSelectOptions } from '../../utils/ianaTimeZones';
+import { IanaTimeZoneCombobox } from '../IanaTimeZoneCombobox';
 import sharedStyles from '../PodcastDetail/shared.module.css';
 import localStyles from './ShowCast.module.css';
 
@@ -217,7 +217,9 @@ export function CastProfilePendingDialog({
     >
       <Dialog.Portal>
         <Dialog.Overlay className={styles.dialogOverlay} />
-        <Dialog.Content className={`${styles.dialogContent} ${styles.castPendingDialog}`}>
+        <Dialog.Content
+          className={`${styles.dialogContent} ${styles.dialogContentScrollable} ${styles.castPendingDialog}`}
+        >
           <div className={styles.dialogHeaderRow}>
             <Dialog.Title className={styles.dialogTitle}>
               Review Profile Update
@@ -239,7 +241,8 @@ export function CastProfilePendingDialog({
             emailing them.
           </Dialog.Description>
 
-          {isLoading ? (
+          <div className={styles.dialogBodyScroll}>
+            {isLoading ? (
             <p className={styles.pdCardEmptyState}>Loading...</p>
           ) : loadError ? (
             <p className={styles.error} role="alert">
@@ -309,19 +312,13 @@ export function CastProfilePendingDialog({
                 </label>
                 <label className={styles.castDialogFormLabel}>
                   Time Zone
-                  <select
-                    className={styles.castDialogFormInput}
+                  <IanaTimeZoneCombobox
                     value={timeZone}
-                    onChange={(e) => setTimeZone(e.target.value)}
+                    onChange={setTimeZone}
+                    emptyLabel="Not set"
                     disabled={busy}
-                  >
-                    <option value="">Not set</option>
-                    {ianaTimeZoneSelectOptions(timeZone).map((tz) => (
-                      <option key={tz} value={tz}>
-                        {tz}
-                      </option>
-                    ))}
-                  </select>
+                    aria-label="Time Zone"
+                  />
                 </label>
                 <div className={styles.castPendingPhotoEdit}>
                   {photoPreview ? (
@@ -413,11 +410,12 @@ export function CastProfilePendingDialog({
             </div>
           )}
 
-          {error ? (
-            <p className={styles.error} role="alert">
-              {error}
-            </p>
-          ) : null}
+            {error ? (
+              <p className={styles.error} role="alert">
+                {error}
+              </p>
+            ) : null}
+          </div>
 
           <div className={`${styles.dialogActions} ${styles.dialogActionsCancelLeft}`}>
             <div className={styles.castPendingDialogLeftActions}>

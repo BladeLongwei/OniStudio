@@ -197,10 +197,15 @@ export function canBootstrapAdvancedEditorFromMix(
   podcastId: string,
   episodeId: string,
   segment: Record<string, unknown>,
+  /** Optional pre-resolved mt dir (avoids another recordings/ readdir). */
+  existingMtDir?: string | null,
 ): boolean {
   if (segment.type !== "recorded") return false;
   if (segment.inProgress || segment.recordFailed) return false;
-  const existing = findMultitrackDir(podcastId, episodeId, segment.id as string);
+  const existing =
+    existingMtDir !== undefined
+      ? existingMtDir
+      : findMultitrackDir(podcastId, episodeId, segment.id as string);
   if (existing && existsSync(join(existing, TRACKS_MANIFEST_NAME))) {
     return false;
   }

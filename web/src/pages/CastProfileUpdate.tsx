@@ -28,7 +28,7 @@ import {
   submitCastProfileUpdate,
 } from '../api/castProfileUpdate';
 import { resizeCastProfilePhoto } from '../utils/resizeCastProfilePhoto';
-import { ianaTimeZoneSelectOptions } from '../utils/ianaTimeZones';
+import { IanaTimeZoneCombobox } from '../components/IanaTimeZoneCombobox';
 import authStyles from './Auth.module.css';
 import castStyles from '../components/ShowCast/ShowCast.module.css';
 import styles from './CastProfileUpdate.module.css';
@@ -317,19 +317,13 @@ export function CastProfileUpdate() {
 
             <label className={styles.label}>
               Time Zone
-              <select
-                className={styles.input}
+              <IanaTimeZoneCombobox
                 value={timeZone}
-                onChange={(e) => setTimeZone(e.target.value)}
+                onChange={setTimeZone}
+                emptyLabel="Not set"
                 disabled={mutation.isPending}
-              >
-                <option value="">Not set</option>
-                {ianaTimeZoneSelectOptions(timeZone).map((tz) => (
-                  <option key={tz} value={tz}>
-                    {tz}
-                  </option>
-                ))}
-              </select>
+                aria-label="Time Zone"
+              />
             </label>
             <p className={styles.hint}>
               Used for meeting emails so times show in your local zone. Not shown

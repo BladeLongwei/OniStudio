@@ -44,6 +44,11 @@ import {
   updateSegment,
 } from '../../api/segments';
 import {
+  abortSignalAfter,
+  isAbortTimeoutError,
+  SAVE_REQUEST_TIMEOUT_MS,
+} from '../../api/client';
+import {
   castPhotoUrl,
   listCast,
   type CastMember,
@@ -306,6 +311,13 @@ export function SegmentEditorV2({
   const viewWindowMsRef = useRef(DEFAULT_VIEW_MS);
   /** After save we update the tracks query cache; skip re-hydrating editor state. */
   const suppressTracksHydrateRef = useRef(false);
+  /** Stable per Advanced Editor mount for stale-write guard. */
+  const editorSessionIdRef = useRef(
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID()
+      : `sess-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+  );
+  const saveSeqRef = useRef(0);
 
   const [clips, setClips] = useState<EditorClip[]>([]);
   const [baseline, setBaseline] = useState<string>('');
@@ -1819,48 +1831,66 @@ export function SegmentEditorV2({
       setError('At least one clip is required.');
       return;
     }
+    const wasPlaying = previewRef.current?.isPlaying ?? false;
+    if (wasPlaying) previewRef.current?.pause();
     setSaving(true);
     setError(null);
+    const signal = abortSignalAfter(SAVE_REQUEST_TIMEOUT_MS);
     try {
       if (clipsDirty) {
+        const saveSeq = ++saveSeqRef.current;
+        const apiClips = toApiClips(clips);
         const saved = await saveSegmentTracks(
           episodeId,
           segmentId,
-          toApiClips(clips),
+          apiClips,
+          {
+            editorSessionId: editorSessionIdRef.current,
+            saveSeq,
+            signal,
+          },
         );
-        const next = toEditorClips(saved.clips);
-        setClips(next);
-        setLaneFxDefaults((prev) => {
-          const built = buildLaneFxDefaults(next);
-          // Keep sticky track defaults for lanes that are fully overridden.
-          const merged = { ...built };
-          for (const [key, value] of Object.entries(prev)) {
-            const laneHasInherited = next.some(
-              (c) => editorLaneKey(c) === key && c.fxOverride !== true,
-            );
-            if (!laneHasInherited && value) merged[key] = value;
-          }
-          return merged;
-        });
-        setBaseline(JSON.stringify(toApiClips(next)));
+        // Keep local clips (server no longer echoes them). Baseline matches what we sent.
+        setBaseline(JSON.stringify(apiClips));
         // Keep reopen from serving a stale pre-save GET .../tracks payload.
         suppressTracksHydrateRef.current = true;
         queryClient.setQueryData(
           ['segment-tracks', episodeId, segmentId],
           (old: SegmentTracksResponse | undefined): SegmentTracksResponse => ({
-            clips: saved.clips,
+            clips: apiClips,
             timelineDurationMs: saved.timelineDurationMs,
-            takes: takesAfterClipSave(saved.clips, old?.takes),
+            takes: takesAfterClipSave(apiClips, old?.takes),
           }),
         );
+        if (saved.originalBackedUp) {
+          queryClient.setQueryData(
+            ['segments', episodeId],
+            (old: { segments?: Array<Record<string, unknown>> } | undefined) => {
+              if (!old?.segments) return old;
+              return {
+                ...old,
+                segments: old.segments.map((s) =>
+                  s.id === segmentId
+                    ? { ...s, hasOriginalTracksManifest: true }
+                    : s,
+                ),
+              };
+            },
+          );
+        }
       }
       if (trimsDirty || markersDirty) {
         const merged = mergeTrimRanges(trimRanges);
         const nextMarkers = sortMarkers(markers);
-        await updateSegment(episodeId, segmentId, {
-          ...(trimsDirty ? { trimRanges: merged } : {}),
-          ...(markersDirty ? { markers: nextMarkers } : {}),
-        });
+        await updateSegment(
+          episodeId,
+          segmentId,
+          {
+            ...(trimsDirty ? { trimRanges: merged } : {}),
+            ...(markersDirty ? { markers: nextMarkers } : {}),
+          },
+          { signal },
+        );
         if (trimsDirty) {
           setTrimRanges(merged);
           setTrimsBaseline(JSON.stringify(merged));
@@ -1869,12 +1899,33 @@ export function SegmentEditorV2({
           setMarkers(nextMarkers);
           setMarkersBaseline(nextMarkers.map((m) => ({ ...m })));
         }
+        // Trims/markers live on the segment row; refresh list in background only then.
+        void queryClient.invalidateQueries({ queryKey: ['segments', episodeId] });
       }
-      await queryClient.invalidateQueries({ queryKey: ['segments', episodeId] });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save');
+      if (isAbortTimeoutError(err)) {
+        setError('Save timed out. Please try again.');
+      } else if (
+        err instanceof Error &&
+        (err as Error & { status?: number }).status === 409
+      ) {
+        setError(err.message || 'Save conflict. Reload tracks and try again.');
+        void queryClient.invalidateQueries({
+          queryKey: ['segment-tracks', episodeId, segmentId],
+        });
+      } else {
+        setError(err instanceof Error ? err.message : 'Failed to save');
+      }
     } finally {
       setSaving(false);
+      if (wasPlaying) {
+        const engine = previewRef.current;
+        if (engine) {
+          followPlayheadRef.current = true;
+          engine.setPlayheadMs(engine.getPlayheadMs());
+          engine.play();
+        }
+      }
     }
   }, [
     readOnly,

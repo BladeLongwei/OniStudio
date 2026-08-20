@@ -1,0 +1,103 @@
+.root {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.chevronBtn {
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.chevronBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.chevronBtn:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.listbox {
+  position: absolute;
+  z-index: 40;
+  left: 0;
+  right: 0;
+  top: calc(100% + 0.25rem);
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  max-height: 14rem;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.option {
+  padding: 0.45rem 0.65rem;
+  font-size: 0.875rem;
+  color: var(--text);
+  border-radius: calc(var(--radius) - 2px);
+  cursor: pointer;
+}
+
+.optionActive {
+  background: var(--bg-muted);
+}
+
+.optionSelected {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.empty {
+  padding: 0.65rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}

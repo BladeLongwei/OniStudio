@@ -63,6 +63,8 @@ export interface MeResponse {
   podcastCount: number;
   episodeCount: number;
   needsCompleteAccount?: boolean;
+  /** Instance IANA timezone (Settings > Server timezone, or process default). */
+  effectiveTimezone?: string;
   twoFactor?: TwoFactorStatus | null;
 }
 

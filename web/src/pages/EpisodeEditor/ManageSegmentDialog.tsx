@@ -87,7 +87,7 @@ export function ManageSegmentDialog({
   const canProject = hasAudio;
   const duckingEnabled = Boolean(segment?.hostDuckingEnabled);
   const loudnessTargetingEnabled = segment?.loudnessTargetingEnabled !== false;
-  const multiTrackWhisperEnabled = segment?.multiTrackWhisperEnabled !== false;
+  const multiTrackWhisperEnabled = segment?.multiTrackWhisperEnabled === true;
   const showLoudnessTargeting = Boolean(hasAudio) && !readOnly;
   const showHostDucking = Boolean(segment?.hasRecordings) && !readOnly;
   const showMultiTrackWhisper = Boolean(segment?.hasRecordings) && !readOnly;
@@ -340,7 +340,7 @@ export function ManageSegmentDialog({
 
   async function handleMultiTrackWhisperToggle(enabled: boolean) {
     if (!segment || busy || readOnly) return;
-    if ((segment.multiTrackWhisperEnabled !== false) === enabled) return;
+    if ((segment.multiTrackWhisperEnabled === true) === enabled) return;
     setWaitError(null);
     try {
       await updateSegment(episodeId, segment.id, {

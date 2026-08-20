@@ -39,3 +39,44 @@ export function ianaTimeZoneSelectOptions(current: string): string[] {
   }
   return TIMEZONE_OPTIONS;
 }
+
+/**
+ * Filter IANA zones by typed query. Matches full id, underscored city, or
+ * spaced city (e.g. "new york" → America/New_York).
+ */
+export function filterIanaTimeZones(query: string, options: string[]): string[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return options;
+  const qCompact = q.replace(/\s+/g, '_');
+
+  const scored: { tz: string; score: number }[] = [];
+  for (const tz of options) {
+    const lower = tz.toLowerCase();
+    const spaced = lower.replace(/_/g, ' ');
+    const city = lower.split('/').pop() || '';
+    const citySpaced = city.replace(/_/g, ' ');
+
+    let score = -1;
+    if (lower === qCompact || spaced === q || city === qCompact || citySpaced === q) {
+      score = 0;
+    } else if (
+      lower.startsWith(qCompact) ||
+      spaced.startsWith(q) ||
+      city.startsWith(qCompact) ||
+      citySpaced.startsWith(q)
+    ) {
+      score = 1;
+    } else if (
+      lower.includes(qCompact) ||
+      spaced.includes(q) ||
+      city.includes(qCompact) ||
+      citySpaced.includes(q)
+    ) {
+      score = 2;
+    }
+    if (score >= 0) scored.push({ tz, score });
+  }
+
+  scored.sort((a, b) => a.score - b.score || a.tz.localeCompare(b.tz));
+  return scored.map((x) => x.tz);
+}

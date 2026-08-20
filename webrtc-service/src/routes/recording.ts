@@ -413,7 +413,7 @@ export function registerRecordingRoutes(
         }, 20000);
       }
 
-      const STALL_THRESHOLD_MS = 15000;
+      const STALL_THRESHOLD_MS = 10_000;
       const finalizedThisTick = new Set<string>();
       const producerCheckInterval = setInterval(async () => {
         const rec = recordingByRoom.get(roomId);
@@ -439,6 +439,9 @@ export function registerRecordingRoutes(
               if (!producerStillInRoom) {
                 // producer closed
               } else {
+                // Do not re-attach this producer: unmute creates a new producer id.
+                // Re-attaching a stalled id floods the timeline with empty takes.
+                rec.leftProducerIds.add(producerId);
                 request.log.warn(
                   { roomId, episodeId: rec.episodeId, producerId, segmentId: seg.segmentId },
                   "Recording segment stall detected"
@@ -447,6 +450,7 @@ export function registerRecordingRoutes(
                   segmentId: seg.segmentId,
                   producerId,
                   status: "DEGRADED",
+                  reason: "stall",
                 });
               }
               finalizedThisTick.add(producerId);

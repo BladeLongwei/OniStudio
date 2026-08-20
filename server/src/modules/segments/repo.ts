@@ -229,6 +229,7 @@ export function insertSegmentReusable(values: {
     name: values.name,
     reusableAssetId: values.reusableAssetId,
     durationSec: values.durationSec,
+    multiTrackWhisperEnabled: false,
   }).run();
 }
 
@@ -257,6 +258,7 @@ export function insertSegmentRecorded(values: {
     markers: values.markers ?? null,
     audioEq: values.audioEq ?? null,
     disabled: values.disabled ?? false,
+    multiTrackWhisperEnabled: false,
   }).run();
 }
 

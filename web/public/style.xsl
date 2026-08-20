@@ -462,9 +462,6 @@
 
             <ul class="items">
               <xsl:for-each select="$channel/item">
-                <!-- Sort by pubDate text (best-effort in XSLT 1.0); keeps original order if empty -->
-                <xsl:sort select="pubDate" data-type="text" order="descending"/>
-
                 <li class="item">
                   <div class="item-head">
                     <div>

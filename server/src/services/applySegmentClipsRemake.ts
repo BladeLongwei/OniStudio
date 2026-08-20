@@ -1,4 +1,11 @@
-import { existsSync, unlinkSync, writeFileSync, readFileSync, statSync } from "fs";
+import {
+  existsSync,
+  unlinkSync,
+  writeFileSync,
+  readFileSync,
+  statSync,
+} from "fs";
+import { access, rename, stat, unlink, writeFile } from "fs/promises";
 import { basename, dirname, join } from "path";
 import { resolveDataPath, segmentPath, uploadsDir } from "./paths.js";
 import * as audioService from "./audio.js";
@@ -32,10 +39,93 @@ import type { SegmentTrackClip } from "@harborfm/shared";
 /** Match DAW export: skip near-empty reconnect / failed-join stubs. */
 const MIN_TAKE_MEDIA_BYTES = 2048;
 
+export const TRACKS_SAVE_TIMEOUT_MS = 15_000;
+
+export class TracksSaveConflictError extends Error {
+  readonly statusCode = 409;
+  constructor(message = "Stale save rejected") {
+    super(message);
+    this.name = "TracksSaveConflictError";
+  }
+}
+
+export class TracksSaveTimeoutError extends Error {
+  readonly statusCode = 504;
+  constructor(message = "Save timed out") {
+    super(message);
+    this.name = "TracksSaveTimeoutError";
+  }
+}
+
+type TracksSaveGuard = {
+  sessionId: string;
+  saveSeq: number;
+};
+
+const tracksSaveLocks = new Map<string, Promise<unknown>>();
+
+async function withTracksSaveLock<T>(
+  key: string,
+  fn: () => Promise<T>,
+): Promise<T> {
+  const prev = tracksSaveLocks.get(key) ?? Promise.resolve();
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  const chained = prev.catch(() => undefined).then(() => gate);
+  tracksSaveLocks.set(key, chained);
+  await prev.catch(() => undefined);
+  try {
+    return await fn();
+  } finally {
+    release();
+    if (tracksSaveLocks.get(key) === chained) {
+      tracksSaveLocks.delete(key);
+    }
+  }
+}
+
+function readTracksSaveGuard(
+  manifest: MultitrackManifest,
+): TracksSaveGuard | null {
+  const raw = (manifest as { tracksSaveGuard?: unknown }).tracksSaveGuard;
+  if (!raw || typeof raw !== "object") return null;
+  const o = raw as Record<string, unknown>;
+  const sessionId = typeof o.sessionId === "string" ? o.sessionId : "";
+  const saveSeq =
+    typeof o.saveSeq === "number" && Number.isFinite(o.saveSeq)
+      ? Math.floor(o.saveSeq)
+      : 0;
+  if (!sessionId || saveSeq < 1) return null;
+  return { sessionId, saveSeq };
+}
+
+function assertNotTimedOut(
+  deadlineMs: number,
+  isAborted?: () => boolean,
+): void {
+  if (isAborted?.()) {
+    throw new TracksSaveTimeoutError("Save aborted");
+  }
+  if (Date.now() > deadlineMs) {
+    throw new TracksSaveTimeoutError();
+  }
+}
+
 function isUsableTakeMedia(absPath: string): boolean {
   if (!existsSync(absPath)) return false;
   try {
     return statSync(absPath).size >= MIN_TAKE_MEDIA_BYTES;
+  } catch {
+    return false;
+  }
+}
+
+async function isUsableTakeMediaAsync(absPath: string): Promise<boolean> {
+  try {
+    const st = await stat(absPath);
+    return st.size >= MIN_TAKE_MEDIA_BYTES;
   } catch {
     return false;
   }
@@ -306,46 +396,142 @@ function sanitizeClips(
   return trimOverlappingSoundboardEntries(out);
 }
 
+async function sanitizeClipsAsync(
+  clips: SegmentTrackClip[],
+  mtDir: string,
+  deadlineMs: number,
+  isAborted?: () => boolean,
+): Promise<MultitrackSegmentEntry[]> {
+  const out: MultitrackSegmentEntry[] = [];
+  for (const raw of clips) {
+    assertNotTimedOut(deadlineMs, isAborted);
+    const base = basename(String(raw.filePath).replace(/\\/g, "/"));
+    if (!base || base.includes("..")) {
+      throw new Error(`Invalid clip filePath: ${raw.filePath}`);
+    }
+    const abs = join(mtDir, base);
+    try {
+      await access(abs);
+    } catch {
+      throw new Error(`Clip media missing on server: ${base}`);
+    }
+    if (!(await isUsableTakeMediaAsync(abs))) continue;
+    const entry: MultitrackSegmentEntry = {
+      ...(raw as MultitrackSegmentEntry),
+      filePath: base,
+    };
+    out.push(entry);
+  }
+  if (out.length === 0) {
+    throw new Error("At least one clip is required");
+  }
+  return trimOverlappingSoundboardEntries(out);
+}
+
 /**
  * Write clips to tracks_manifest.json (no mix remake).
  * Backs up tracks_manifest.json.original once when missing (same as OTIO/Reaper import).
+ * Honors deadline + per-session saveSeq so timed-out / stale saves do not commit.
  */
-export function saveSegmentTracksClips(opts: {
+export async function saveSegmentTracksClips(opts: {
   podcastId: string;
   episodeId: string;
   segmentId: string;
   clips: SegmentTrackClip[];
-}): {
+  editorSessionId: string;
+  saveSeq: number;
+  deadlineMs?: number;
+  isAborted?: () => boolean;
+}): Promise<{
   clips: MultitrackSegmentEntry[];
   timelineDurationMs: number;
   originalBackedUp: boolean;
-} {
-  const { podcastId, episodeId, segmentId, clips } = opts;
-  const mtDir = findMultitrackDir(podcastId, episodeId, segmentId);
-  if (!mtDir) {
-    throw new Error("No multitrack recordings for this segment");
-  }
+}> {
+  const {
+    podcastId,
+    episodeId,
+    segmentId,
+    clips,
+    editorSessionId,
+    saveSeq,
+    isAborted,
+  } = opts;
+  const deadlineMs = opts.deadlineMs ?? Date.now() + TRACKS_SAVE_TIMEOUT_MS;
+  const lockKey = `${podcastId}/${episodeId}/${segmentId}`;
 
-  const originalBackedUp = ensureOriginalTracksManifest(mtDir);
+  return withTracksSaveLock(lockKey, async () => {
+    assertNotTimedOut(deadlineMs, isAborted);
 
-  const existingManifest = readTracksManifestFile(mtDir) ?? {};
-  const sanitized = sanitizeClips(clips, mtDir);
-  const manifest: MultitrackManifest = {
-    ...existingManifest,
-    segments: sanitized,
-  };
+    const mtDir = findMultitrackDir(podcastId, episodeId, segmentId);
+    if (!mtDir) {
+      throw new Error("No multitrack recordings for this segment");
+    }
 
-  // Sidecars are refreshed asynchronously in remake path; keep sync write here.
-  writeFileSync(
-    join(mtDir, TRACKS_MANIFEST_NAME),
-    JSON.stringify(manifest, null, 2),
-  );
+    assertNotTimedOut(deadlineMs, isAborted);
+    const originalBackedUp = ensureOriginalTracksManifest(mtDir);
 
-  return {
-    clips: sanitized,
-    timelineDurationMs: timelineDurationMsFromClips(sanitized),
-    originalBackedUp,
-  };
+    assertNotTimedOut(deadlineMs, isAborted);
+    const existingManifest = readTracksManifestFile(mtDir) ?? {};
+    const prior = readTracksSaveGuard(existingManifest);
+    if (
+      prior &&
+      prior.sessionId === editorSessionId &&
+      saveSeq <= prior.saveSeq
+    ) {
+      throw new TracksSaveConflictError(
+        "A newer save already completed for this editor session",
+      );
+    }
+
+    const sanitized = await sanitizeClipsAsync(
+      clips,
+      mtDir,
+      deadlineMs,
+      isAborted,
+    );
+    assertNotTimedOut(deadlineMs, isAborted);
+
+    const manifest: MultitrackManifest = {
+      ...existingManifest,
+      segments: sanitized,
+      tracksSaveGuard: { sessionId: editorSessionId, saveSeq },
+    };
+
+    const finalPath = join(mtDir, TRACKS_MANIFEST_NAME);
+    const tmpPath = join(mtDir, `.tracks_manifest.${saveSeq}.tmp`);
+    const payload = JSON.stringify(manifest, null, 2);
+    try {
+      await writeFile(tmpPath, payload, "utf8");
+      assertNotTimedOut(deadlineMs, isAborted);
+      // Re-check guard after slow write so a newer save that finished first wins.
+      const latest = readTracksManifestFile(mtDir) ?? {};
+      const latestGuard = readTracksSaveGuard(latest);
+      if (
+        latestGuard &&
+        latestGuard.sessionId === editorSessionId &&
+        saveSeq <= latestGuard.saveSeq
+      ) {
+        throw new TracksSaveConflictError(
+          "A newer save already completed for this editor session",
+        );
+      }
+      assertNotTimedOut(deadlineMs, isAborted);
+      await rename(tmpPath, finalPath);
+    } catch (err) {
+      try {
+        await unlink(tmpPath);
+      } catch {
+        /* ignore */
+      }
+      throw err;
+    }
+
+    return {
+      clips: sanitized,
+      timelineDurationMs: timelineDurationMsFromClips(sanitized),
+      originalBackedUp,
+    };
+  });
 }
 
 /**

@@ -1,6 +1,6 @@
 import { AccessGeneralSectionProps } from '../../types/settings';
 import { SectionCard } from './SectionCard';
-import { ianaTimeZoneSelectOptions } from '../../utils/ianaTimeZones';
+import { IanaTimeZoneCombobox } from '../IanaTimeZoneCombobox';
 import styles from '../../pages/Settings.module.css';
 
 export function AccessGeneralSection({
@@ -9,7 +9,6 @@ export function AccessGeneralSection({
   welcomeBannerRef,
   onResizeWelcomeBanner,
 }: AccessGeneralSectionProps) {
-  const timezoneOptions = ianaTimeZoneSelectOptions(form.timezone);
   return (
     <SectionCard
       title="Access & General"
@@ -71,18 +70,12 @@ export function AccessGeneralSection({
 
       <label className={styles.label} data-settings-label="Server timezone">
         Server timezone
-        <select
-          className={styles.select}
+        <IanaTimeZoneCombobox
           value={form.timezone}
-          onChange={(e) => onFormChange({ timezone: e.target.value })}
-        >
-          <option value="">Use system default</option>
-          {timezoneOptions.map((tz) => (
-            <option key={tz} value={tz}>
-              {tz}
-            </option>
-          ))}
-        </select>
+          onChange={(timezone) => onFormChange({ timezone })}
+          emptyLabel="Use system default"
+          aria-label="Server timezone"
+        />
         <p className={styles.inputHelp}>
           Effective timezone: {form.timezone.trim() || form.effectiveTimezone || 'UTC'}.
           Analytics Downloads by day and hour use this zone. Changing it does not rewrite past analytics.

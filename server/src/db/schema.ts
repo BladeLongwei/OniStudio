@@ -426,12 +426,12 @@ export const episodeSegments = sqliteTable(
       .notNull()
       .default(true),
     finalGainDb: real("final_gain_db").notNull().default(0),
-    /** When true, prefer per-host-track Whisper merge when 2+ included tracks exist. */
+    /** When true, prefer per-host-track Whisper merge when 2+ included tracks exist. Opt-in. */
     multiTrackWhisperEnabled: integer("multi_track_whisper_enabled", {
       mode: "boolean",
     })
       .notNull()
-      .default(true),
+      .default(false),
   },
   (table) => [index("idx_episode_segments_episode").on(table.episodeId)],
 );

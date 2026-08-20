@@ -215,50 +215,39 @@ export async function registerTranscriptRoutes(app: FastifyInstance) {
         settings.workers_use_for_transcripts !== false;
       const multiTrackWhisperEnabled =
         (segment as { multiTrackWhisperEnabled?: boolean })
-          .multiTrackWhisperEnabled !== false;
+          .multiTrackWhisperEnabled === true;
       const durationSec = Number(
         (segment as { durationSec?: number }).durationSec,
       ) || 0;
       const trimRanges = (segment as { trimRanges?: unknown }).trimRanges;
+      const subject = resolveWorkerJobSubject({
+        podcastId: access.podcastId,
+        episodeId,
+        segmentId,
+        userId: request.userId,
+      });
       setImmediate(() => {
         (async () => {
           try {
-            const writeLocal = async () => {
-              await generateSegmentTranscriptFile({
-                podcastId: access.podcastId,
-                episodeId,
-                segmentId,
-                audioPath,
-                audioBase,
-                settings,
-                multiTrackWhisperEnabled,
-                trimRanges,
-                durationSec,
-              });
-            };
-            // Multi-track path always runs on the API host (multiple takes).
-            // Single-file mix may still use the worker when configured.
-            const tryMultiFirst = multiTrackWhisperEnabled;
-            if (tryMultiFirst || !useWorker) {
-              assertPathUnder(dirname(txtPath), audioBase);
-              await writeLocal();
-            } else {
-              assertPathUnder(dirname(txtPath), audioBase);
-              await dispatchComputeJob({
-                kind: "transcribe",
-                apiBase,
-                inputs: [{ name: "audio", absolutePath: audioPath }],
-                outputs: [{ name: "transcript.srt", absolutePath: txtPath }],
-                params: {},
-                subject: resolveWorkerJobSubject({
-                  podcastId: access.podcastId,
-                  episodeId,
-                  segmentId,
-                  userId: request.userId,
-                }),
-                runLocal: writeLocal,
-              });
-            }
+            assertPathUnder(dirname(txtPath), audioBase);
+            await generateSegmentTranscriptFile({
+              podcastId: access.podcastId,
+              episodeId,
+              segmentId,
+              audioPath,
+              audioBase,
+              settings,
+              multiTrackWhisperEnabled,
+              trimRanges,
+              durationSec,
+              worker: useWorker
+                ? {
+                    apiBase,
+                    subject,
+                    userId: request.userId,
+                  }
+                : null,
+            });
             transcriptStatusBySegment.set(segmentId, "done");
             broadcastToEpisode(episodeId, {
               type: "segmentTranscriptGenerated",
@@ -844,6 +833,11 @@ export async function registerTranscriptRoutes(app: FastifyInstance) {
         settings.transcription_provider === "self_hosted" &&
         settings.workers_enabled &&
         settings.workers_use_for_transcripts !== false;
+      const subject = resolveWorkerJobSubject({
+        podcastId,
+        episodeId,
+        userId: request.userId,
+      });
       setImmediate(() => {
         (async () => {
           try {
@@ -858,6 +852,13 @@ export async function registerTranscriptRoutes(app: FastifyInstance) {
               onProgress: (message) => {
                 log.info({ episodeId, message }, "Episode transcript progress");
               },
+              worker: useWorker
+                ? {
+                    apiBase,
+                    subject,
+                    userId: request.userId,
+                  }
+                : null,
             });
 
             if (stitched != null) {
@@ -869,11 +870,7 @@ export async function registerTranscriptRoutes(app: FastifyInstance) {
                 inputs: [{ name: "audio", absolutePath: audioPath }],
                 outputs: [{ name: "transcript.srt", absolutePath: srtPath }],
                 params: {},
-                subject: resolveWorkerJobSubject({
-                  podcastId,
-                  episodeId,
-                  userId: request.userId,
-                }),
+                subject,
                 runLocal: async () => {
                   const text = await runTranscription(
                     audioPath,

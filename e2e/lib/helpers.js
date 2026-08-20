@@ -745,14 +745,23 @@ export async function bootstrapSegmentTracksFromMix(jar, episodeId, segmentId) {
   return data;
 }
 
-/** PUT .../segments/:id/tracks { clips } */
+/** PUT .../segments/:id/tracks { clips, editorSessionId, saveSeq } */
 export async function saveSegmentTracks(jar, episodeId, segmentId, clips) {
+  if (!saveSegmentTracks._seq) saveSegmentTracks._seq = 0;
+  saveSegmentTracks._seq += 1;
+  if (!saveSegmentTracks._session) {
+    saveSegmentTracks._session = `e2e-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  }
   const res = await apiFetch(
     `/episodes/${encodeURIComponent(episodeId)}/segments/${encodeURIComponent(segmentId)}/tracks`,
     {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ clips }),
+      body: JSON.stringify({
+        clips,
+        editorSessionId: saveSegmentTracks._session,
+        saveSeq: saveSegmentTracks._seq,
+      }),
     },
     jar,
   );
