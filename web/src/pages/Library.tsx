@@ -506,6 +506,7 @@ export function Library() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
+          <p className="oni-workspace-eyebrow">ONI STUDIO / SOUND LIBRARY</p>
           <h1 className={styles.title}>
             {isAdminView ? `Library (${selectedUser?.email ?? userId})` : 'Library'}
           </h1>

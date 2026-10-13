@@ -198,3 +198,8 @@ body.scanlines::after {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+.oni-workspace-eyebrow { font-size: .63rem; font-weight: 600; letter-spacing: .15em; color: #b2a8b6; margin: 0 0 12px; }
+[data-oni-workspace] input[type='text'], [data-oni-workspace] input[type='email'], [data-oni-workspace] input[type='search'], [data-oni-workspace] input[type='password'], [data-oni-workspace] input[type='number'], [data-oni-workspace] select, [data-oni-workspace] textarea { border-radius: 7px; }
+[data-oni-workspace] button { transition: background-color .15s, border-color .15s, color .15s; }
+@media(prefers-reduced-motion: reduce) { [data-oni-workspace] button { transition: none; } }

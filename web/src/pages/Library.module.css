@@ -809,3 +809,10 @@
     min-width: 120px;
   }
 }
+
+.header { border-bottom: 1px solid var(--border); padding-bottom: 28px; margin-bottom: 28px; }
+.title { font-size: clamp(1.7rem,3vw,2.4rem); font-weight: 500; letter-spacing: -.045em; }
+.uploadCard { background: #141418; border-radius: 12px; box-shadow: none; padding: 26px; }
+.uploadCard::before { display: none; }
+.uploadTitle { font-weight: 500; }
+.controls { background: #121215; padding: 16px; border: 1px solid var(--border); border-radius: 10px; }

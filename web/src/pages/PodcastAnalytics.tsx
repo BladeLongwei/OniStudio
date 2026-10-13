@@ -1166,7 +1166,7 @@ export function PodcastAnalytics() {
               </div>
             )}
             <p className={styles.cardFooter}>
-              Human Downloads by app: Spotify, Apple Podcasts, Website (HarborFM site/theme player), and Other.
+              Human Downloads by app: Spotify, Apple Podcasts, Website (ONI Studio site/theme player), and Other.
             </p>
           </div>
 
@@ -1334,7 +1334,7 @@ export function PodcastAnalytics() {
               Retention
             </h2>
             <p className={styles.sectionSub}>
-              How far listeners get in the episode on your HarborFM site or theme player.
+              How far listeners get in the episode on your ONI Studio site or theme player.
             </p>
             <CardTabs
               options={['line', 'table'] as const}
@@ -1346,7 +1346,7 @@ export function PodcastAnalytics() {
               retentionTableRows.length === 0 ? (
                 <div className={styles.chartContainer}>
                   <p className={styles.empty}>
-                    No website retention data yet. Curves appear after listeners play episodes on your HarborFM site or theme player.
+                    No website retention data yet. Curves appear after listeners play episodes on your ONI Studio site or theme player.
                   </p>
                 </div>
               ) : (
@@ -1384,7 +1384,7 @@ export function PodcastAnalytics() {
             ) : retentionSeriesKeys.length === 0 ? (
               <div className={styles.chartContainer}>
                 <p className={styles.empty}>
-                  No website retention data yet. Curves appear after listeners play episodes on your HarborFM site or theme player.
+                  No website retention data yet. Curves appear after listeners play episodes on your ONI Studio site or theme player.
                 </p>
               </div>
             ) : (

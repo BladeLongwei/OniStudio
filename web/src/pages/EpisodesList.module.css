@@ -320,3 +320,7 @@
   font-size: 0.875rem;
   color: var(--text-muted);
 }
+
+.card { background: #131316; border-radius: 12px; box-shadow: none; }
+.cardHeader { padding-bottom: 22px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.cardTitle { font-weight: 500; letter-spacing: -.035em; font-size: 1.8rem; }

@@ -250,7 +250,7 @@ export function Layout() {
         </div>
       </div>
 
-      <main className={styles.main}>
+      <main className={styles.main} data-oni-workspace="">
         <Outlet />
       </main>
     </div>

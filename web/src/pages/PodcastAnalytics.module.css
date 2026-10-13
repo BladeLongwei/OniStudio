@@ -555,3 +555,7 @@
   min-height: 280px;
   width: 100%;
 }
+
+.card { background: #131316; border-radius: 12px; box-shadow: none; }
+.cardTitle { font-weight: 500; letter-spacing: -.035em; }
+.sectionTitle { font-weight: 500; letter-spacing: -.015em; }

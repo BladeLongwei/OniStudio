@@ -339,6 +339,7 @@ export function Settings() {
     return (
       <div className={styles.page}>
         <header className={styles.hero}>
+          <p className="oni-workspace-eyebrow">ONI STUDIO / STUDIO ADMINISTRATION</p>
           <h1 className={styles.heroTitle}>Settings</h1>
           <p className={styles.heroSub}>Control your server configuration and access settings.</p>
         </header>
@@ -352,7 +353,8 @@ export function Settings() {
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
-        <h1 className={styles.heroTitle}>Settings</h1>
+        <p className="oni-workspace-eyebrow">ONI STUDIO / STUDIO ADMINISTRATION</p>
+          <h1 className={styles.heroTitle}>Settings</h1>
         <p className={styles.heroSub}>Control your server configuration and access settings.</p>
       </header>
 

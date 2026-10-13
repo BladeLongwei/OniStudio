@@ -51,7 +51,7 @@ export function DnsConfigurationSection({ form, onFormChange }: SettingsFormProp
         <span>Allow Linking Domain</span>
       </label>
       <p className={styles.inputHelp}>
-        When on, podcast owners can set a &quot;link domain&quot; so their feed is reachable at their own domain (e.g. podcast.example.com) instead of only the main HarborFM URL.
+        When on, podcast owners can set a &quot;link domain&quot; so their feed is reachable at their own domain (e.g. podcast.example.com) instead of only the main ONI Studio URL.
       </p>
 
       <div className={styles.label}>
@@ -64,7 +64,7 @@ export function DnsConfigurationSection({ form, onFormChange }: SettingsFormProp
         />
       </div>
       <p className={styles.inputHelp}>
-        Choose how custom domains are set up. &quot;None&quot; turns off automatic DNS. &quot;CloudFlare&quot; lets HarborFM create or update DNS records in your CloudFlare account so custom domains work.
+        Choose how custom domains are set up. &quot;None&quot; turns off automatic DNS. &quot;CloudFlare&quot; lets ONI Studio create or update DNS records in your CloudFlare account so custom domains work.
       </p>
 
       {form.dnsProvider === 'cloudflare' && (
@@ -94,7 +94,7 @@ export function DnsConfigurationSection({ form, onFormChange }: SettingsFormProp
             <span>Use CNAME</span>
           </label>
           <p className={styles.inputHelp}>
-            When on, HarborFM creates a CNAME record pointing your custom domain to this server. Turn off if your host or network requires an A record (a numeric IP) instead.
+            When on, ONI Studio creates a CNAME record pointing your custom domain to this server. Turn off if your host or network requires an A record (a numeric IP) instead.
           </p>
           {!form.dnsUseCname && (
             <label className={styles.label}>

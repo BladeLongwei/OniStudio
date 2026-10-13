@@ -1409,3 +1409,10 @@ textarea.input:focus {
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.hero { padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 26px; }
+.heroTitle { font-weight: 500; letter-spacing: -.04em; font-size: 2rem; }
+.tabListWrap { border: 1px solid var(--border); background: #121215; border-radius: 10px; padding: 10px; }
+.tab { font-size: .8rem; padding: 11px 12px; }
+.tabActive { background: #e3183712; color: #ff7a90; }
+.card { box-shadow: none; border-radius: 12px; background: #141418; }

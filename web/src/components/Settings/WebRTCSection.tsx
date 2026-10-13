@@ -234,7 +234,7 @@ export function WebRTCSection({ form, onFormChange }: SettingsFormProps) {
             <textarea
               className={styles.input}
               rows={2}
-              placeholder="This call may be recorded. Stay on the line to join HarborFM."
+              placeholder="This call may be recorded. Stay on the line to join ONI Studio."
               value={form.dialInConsentPrompt}
               onChange={(e) => onFormChange({ dialInConsentPrompt: e.target.value })}
               data-testid="settings-dial-in-consent-prompt"
@@ -255,7 +255,7 @@ export function WebRTCSection({ form, onFormChange }: SettingsFormProps) {
             <span>Prefer HD Voice</span>
           </label>
           <p className={styles.toggleHelp}>
-            When on, HarborFM asks Telnyx for L16 at 16 kHz on the media bridge (wideband).
+            When on, ONI Studio asks Telnyx for L16 at 16 kHz on the media bridge (wideband).
             When off, uses PCMU at 8 kHz. Phone-to-Telnyx HD still needs G722 on your Connection
             and carrier HD Voice / VoLTE on the caller&apos;s phone. Rebuild/restart webrtc-service
             after changing this so the bridge matches the wire format.
@@ -301,7 +301,7 @@ export function WebRTCSection({ form, onFormChange }: SettingsFormProps) {
             />
           </label>
           <p className={styles.inputHelp}>
-            Required for live dial-in. HarborFM uses it to verify Telnyx webhook
+            Required for live dial-in. ONI Studio uses it to verify Telnyx webhook
             signatures. Copy the base64 public key from{' '}
             <a
               href="https://portal.telnyx.com/#/api-keys/public-key"
@@ -433,7 +433,7 @@ export function WebRTCSection({ form, onFormChange }: SettingsFormProps) {
                 {(recommendedSipSubdomain || 'your-hostname')}.sip.telnyx.com
               </code>
               ). Uncheck VP8 and H.264. Leave G729, OPUS, and AMR-WB unchecked.
-              Prefer HD Voice above controls the HarborFM↔Telnyx media stream; Connection codecs
+              Prefer HD Voice above controls the ONI Studio↔Telnyx media stream; Connection codecs
               control the phone↔Telnyx leg.
             </p>
           </div>

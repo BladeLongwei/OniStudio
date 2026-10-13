@@ -87,12 +87,12 @@ export function AccessGeneralSection({
         <input
           type="text"
           className={styles.input}
-          placeholder="HarborFM"
+          placeholder="ONI Studio"
           value={form.whiteLabel}
           onChange={(e) => onFormChange({ whiteLabel: e.target.value })}
         />
         <p className={styles.inputHelp}>
-          When set, replaces &quot;HarborFM&quot; on public feed headers, episode pages, and embeds. Leave empty to use the default name.
+          When set, replaces &quot;ONI Studio&quot; on public feed headers, episode pages, and embeds. Leave empty to use the default name.
         </p>
       </label>
 

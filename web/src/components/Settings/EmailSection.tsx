@@ -273,7 +273,7 @@ export function EmailSection({
               <h4 className={styles.emailNotificationsGroupTitle}>Event tracking</h4>
               <p className={styles.emailNotificationsGroupHelp}>
                 When enabled, meeting invite and reminder emails include a tracking image so
-                HarborFM can show whether the message was opened in the Schedule Meeting dialog.
+                ONI Studio can show whether the message was opened in the Schedule Meeting dialog.
               </p>
               <div className={styles.emailNotificationsGrid}>
                 <label className="toggle">

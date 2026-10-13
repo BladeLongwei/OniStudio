@@ -1231,7 +1231,7 @@ export function EditShowDetailsDialog({ open, podcastId, onClose }: EditShowDeta
                       <PodrollListField
                         label="Podroll"
                         docsUrl="https://podcasting2.org/docs/podcast-namespace/tags/podroll"
-                        hint="Recommend other shows. Feed GUID is required to save. Cover art is stored for HarborFM only (not emitted in RSS)."
+                        hint="Recommend other shows. Feed GUID is required to save. Cover art is stored for ONI Studio only (not emitted in RSS)."
                         value={form.podroll}
                         onChange={(podroll) => setForm((f) => ({ ...f, podroll }))}
                         addLabel="Add recommendation"

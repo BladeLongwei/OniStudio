@@ -268,3 +268,5 @@
     justify-content: center;
   }
 }
+
+.title { font-weight: 500; letter-spacing: -.04em; }

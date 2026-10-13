@@ -497,3 +497,8 @@
     gap: 0.25rem;
   }
 }
+
+.hero { padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+.heroTitle { font-weight: 500; letter-spacing: -.04em; font-size: 2rem; }
+.card { background: #141418; border-radius: 12px; box-shadow: none; }
+.cardTitle { font-weight: 500; letter-spacing: -.02em; }

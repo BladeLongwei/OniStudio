@@ -1029,3 +1029,6 @@ a.groupListRow:hover .groupListRowLabel {
     justify-content: center;
   }
 }
+
+.podcastIdentity { gap: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.podcastPrimaryBtn, .podcastPrimaryBtnSecondary { box-shadow: none; border-radius: 8px; font-size: .9rem; }

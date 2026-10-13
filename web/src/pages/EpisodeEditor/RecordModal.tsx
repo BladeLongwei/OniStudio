@@ -686,14 +686,16 @@ export function RecordModal({ onClose, onAdd, isAdding, error }: RecordModalProp
   return (
     <div className={styles.recordOverlay} onClick={(e) => e.target === e.currentTarget && requestClose()}>
       <div ref={recordCardRef} className={styles.recordCard} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="record-title">
+        <p className={styles.boothEyebrow}>ONI STUDIO / RECORDING BOOTH</p>
         <div className={styles.dialogHeaderRow}>
           <h3 id="record-title" className={styles.dialogTitle}>
-            Record A Section
+            Capture your next take
           </h3>
           <button type="button" className={styles.dialogClose} onClick={requestClose} aria-label="Close">
             <X size={18} strokeWidth={2} aria-hidden="true" />
           </button>
         </div>
+        <div className={styles.boothStatus}><span><Mic size={16} aria-hidden /> Microphone capture</span><strong>{recording ? 'Recording' : hasPreview ? 'Review your take' : 'Not recording'}</strong></div>
         {!recording && !hasPreview && !settingsOpen && (
           <p className={styles.recordSub}>Use your microphone or upload audio. To begin, click the red record button below.</p>
         )}
