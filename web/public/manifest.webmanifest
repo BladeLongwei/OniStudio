@@ -1,6 +1,6 @@
 {
-  "name": "HarborFM",
-  "short_name": "HarborFM",
+  "name": "ONI Studio",
+  "short_name": "ONI Studio",
   "description": "Create and manage your podcast with ease. Record, edit, and publish episodes.",
   "start_url": "/",
   "display": "standalone",

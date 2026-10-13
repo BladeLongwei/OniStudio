@@ -7,7 +7,7 @@ export function CallJoinHeader() {
       <div className={styles.siteHeaderContent}>
         <Link to="/" className={styles.logo}>
           <img src="/favicon.svg" alt="" className={styles.logoIcon} />
-          HarborFM
+          ONI Studio
         </Link>
       </div>
     </header>

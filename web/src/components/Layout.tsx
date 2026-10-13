@@ -71,7 +71,7 @@ export function Layout() {
           <div className={styles.headerLeft}>
             <Link to="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
               <img src="/favicon.svg" alt="" className={styles.logoIcon} />
-              HarborFM
+              ONI Studio
             </Link>
             <nav className={styles.navBar}>
               <NavLink to="/" end className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>

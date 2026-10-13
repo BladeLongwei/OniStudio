@@ -1,4 +1,4 @@
-export const DEFAULT_SITE_NAME = 'HarborFM';
+export const DEFAULT_SITE_NAME = 'ONI Studio';
 
 export function getSiteDisplayName(whiteLabel?: string | null): string {
   const trimmed = whiteLabel?.trim();

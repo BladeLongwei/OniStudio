@@ -114,7 +114,7 @@ export function Setup() {
           <div className={styles.card}>
             <div className={styles.brand}>
               <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-              <h1 className={styles.title}>HarborFM</h1>
+              <h1 className={styles.title}>ONI Studio</h1>
             </div>
 
             <div className={styles.setupNotice} role="alert" aria-live="polite">
@@ -137,7 +137,7 @@ export function Setup() {
           <div className={styles.card}>
             <div className={styles.brand}>
               <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-              <h1 className={styles.title}>HarborFM</h1>
+              <h1 className={styles.title}>ONI Studio</h1>
             </div>
             <p className={styles.subtitle}>Validating setup link...</p>
           </div>
@@ -154,7 +154,7 @@ export function Setup() {
           <div className={styles.card}>
             <div className={styles.brand}>
               <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-              <h1 className={styles.title}>HarborFM</h1>
+              <h1 className={styles.title}>ONI Studio</h1>
             </div>
 
             <div className={styles.setupNotice} role="alert" aria-live="polite">
@@ -185,7 +185,7 @@ export function Setup() {
         <div className={styles.card}>
         <div className={styles.brand}>
           <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-          <h1 className={styles.title}>HarborFM</h1>
+          <h1 className={styles.title}>ONI Studio</h1>
         </div>
         <div className={styles.setupHeader}>
           <h2 className={styles.setupHeaderTitle}>Initial setup</h2>

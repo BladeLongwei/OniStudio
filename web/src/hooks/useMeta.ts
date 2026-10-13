@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { DEFAULT_OG_IMAGE_PATH, truncateMetaDescription } from '@harborfm/shared';
 import { DEFAULT_SITE_NAME } from '../utils/siteBranding';
 
-const DEFAULT_DESCRIPTION = 'HarborFM - Create and manage your podcast with ease. Record, edit, and publish episodes all in one place.';
-const DEFAULT_TITLE = 'HarborFM';
-const DEFAULT_APPLE_TITLE = 'HarborFM';
+const DEFAULT_DESCRIPTION = 'ONI Studio - Create and manage your podcast with ease. Record, edit, and publish episodes all in one place.';
+const DEFAULT_TITLE = 'ONI Studio';
+const DEFAULT_APPLE_TITLE = 'ONI Studio';
 const OG_IMAGE = DEFAULT_OG_IMAGE_PATH;
 const DEFAULT_FAVICON = '/favicon.png';
 
@@ -68,7 +68,7 @@ export function useMeta({
   title?: string;
   description?: string;
   image?: string;
-  /** og:site_name (e.g. white-label name or HarborFM). */
+  /** og:site_name (e.g. white-label name or ONI Studio). */
   siteName?: string;
   /** Canonical page URL for og:url. */
   url?: string;

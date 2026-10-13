@@ -59,7 +59,7 @@ export function Register() {
         <div className={styles.card}>
         <div className={styles.brand}>
           <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-          <h1 className={styles.title}>HarborFM</h1>
+          <h1 className={styles.title}>ONI Studio</h1>
         </div>
         <div className={styles.loginHeader}>
           <h2 className={styles.setupHeaderTitle}>Register</h2>
