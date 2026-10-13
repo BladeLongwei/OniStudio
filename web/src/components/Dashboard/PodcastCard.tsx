@@ -49,6 +49,7 @@ export function PodcastCard({
           )}
         </div>
         <div className={styles.cardBody}>
+          <p className={styles.showLabel}>PODCAST <span>{epCount} {epCount === 1 ? 'episode' : 'episodes'}</span></p>
           <div className={styles.cardTitleRow}>
             {!!podcast.subscriberOnlyFeedEnabled && (
               <Lock

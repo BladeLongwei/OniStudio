@@ -121,7 +121,7 @@
 
 .textarea:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .textarea:disabled {
@@ -132,7 +132,7 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .tagRow {
@@ -176,7 +176,7 @@
 
 .tagBtnActive {
   color: var(--bg, #0d0d0d);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border-color: transparent;
 }
 
@@ -196,7 +196,7 @@
   font-weight: 600;
   line-height: 1;
   color: var(--bg, #0d0d0d);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -217,7 +217,7 @@
   margin: 0.75rem 0 0;
   text-align: center;
   font-size: 0.875rem;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   text-decoration: none;
 }
 
@@ -245,7 +245,7 @@
 }
 
 .itemAddedToNotes {
-  border-color: rgba(0, 212, 170, 0.35);
+  border-color: rgba(227, 24, 55, 0.35);
 }
 
 .addedToNotesBadge {
@@ -254,9 +254,9 @@
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: 4px;
-  color: var(--accent, #00d4aa);
-  background: rgba(0, 212, 170, 0.12);
-  border: 1px solid rgba(0, 212, 170, 0.4);
+  color: var(--accent, #e31837);
+  background: rgba(227, 24, 55, 0.12);
+  border: 1px solid rgba(227, 24, 55, 0.4);
 }
 
 .itemToolbar {
@@ -299,8 +299,8 @@
   font-weight: 600;
   border-radius: 4px;
   color: var(--text, #e5e5e5);
-  background: rgba(0, 212, 170, 0.15);
-  border: 1px solid rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.15);
+  border: 1px solid rgba(227, 24, 55, 0.35);
 }
 
 .tagBadgeAvoid {

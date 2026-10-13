@@ -387,12 +387,12 @@
 
 .castDialogRoleToggleBtnActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
 .castDialogRoleToggleBtnActive:hover {
   background: var(--accent-dim);
-  color: var(--bg);
+  color: #fff;
 }
 
 .castDialogActions {

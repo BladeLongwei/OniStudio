@@ -103,7 +103,7 @@ export function EditPageCustomizationsDialog({
       scope: 'user' as const,
     }));
     return [
-      { id: FEED_DEFAULT_THEME, name: 'Default HarborFM', scope: 'default' as const },
+      { id: FEED_DEFAULT_THEME, name: 'Default ONI Studio', scope: 'default' as const },
       ...builtins,
       ...userThemes,
     ];
@@ -117,7 +117,7 @@ export function EditPageCustomizationsDialog({
   const pinnedThemes = useMemo(() => {
     const defaultTheme =
       themeOptions.find((theme) => theme.id === FEED_DEFAULT_THEME) ??
-      ({ id: FEED_DEFAULT_THEME, name: 'Default HarborFM', scope: 'default' } as ThemePickerOption);
+      ({ id: FEED_DEFAULT_THEME, name: 'Default ONI Studio', scope: 'default' } as ThemePickerOption);
     const selected =
       form.feedTheme !== FEED_DEFAULT_THEME
         ? themeOptions.find((theme) => theme.id === form.feedTheme) ?? {
@@ -526,7 +526,7 @@ function ThemeOptionCard({
           />
         ) : (
           <span className={localStyles.themeFallback} aria-hidden>
-            {theme.scope === 'default' ? 'HarborFM' : theme.name.slice(0, 1)}
+            {theme.scope === 'default' ? 'ONI Studio' : theme.name.slice(0, 1)}
           </span>
         )}
         {livePreviewUrl ? (

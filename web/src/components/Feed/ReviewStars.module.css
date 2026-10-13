@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .stars.empty {
@@ -29,7 +29,7 @@
 }
 
 .stars .filled {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .stars .empty {

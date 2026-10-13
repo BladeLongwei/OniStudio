@@ -75,18 +75,18 @@
 
 .iconBtn:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .iconBtnActive {
-  background: var(--accent, #00d4aa) !important;
-  border-color: var(--accent, #00d4aa) !important;
+  background: var(--accent, #e31837) !important;
+  border-color: var(--accent, #e31837) !important;
   color: var(--bg, #0c0e12) !important;
 }
 
 .iconBtnActive:hover {
-  background: var(--accent-dim, #00a884) !important;
-  border-color: var(--accent-dim, #00a884) !important;
+  background: var(--accent-dim, #be122c) !important;
+  border-color: var(--accent-dim, #be122c) !important;
   color: var(--bg, #0c0e12) !important;
 }
 
@@ -144,8 +144,8 @@
   padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
   color: var(--text);
-  background: rgba(0, 212, 170, 0.1);
-  border: 1px solid rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.1);
+  border: 1px solid rgba(227, 24, 55, 0.35);
   border-radius: 6px;
 }
 
@@ -182,7 +182,7 @@
 
 .copyBtn:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .joinCodeCard {
@@ -208,7 +208,7 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.2em;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .dialInCard {
@@ -253,7 +253,7 @@
 
 .displayNameInput:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .participantEditBtn {
@@ -262,32 +262,32 @@
   align-items: center;
   justify-content: center;
   padding: 0.25rem;
-  color: var(--accent, #00d4aa);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
+  color: var(--accent, #e31837);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.2);
   border-radius: var(--radius, 8px);
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
 .participantEditBtn:hover {
-  background: rgba(0, 212, 170, 0.15);
-  border-color: var(--accent, #00d4aa);
-  color: var(--accent, #00d4aa);
+  background: rgba(227, 24, 55, 0.15);
+  border-color: var(--accent, #e31837);
+  color: var(--accent, #e31837);
 }
 
 .participantEditBtn.saveBtn {
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
-  box-shadow: 0 0 12px var(--accent-glow, rgba(0, 212, 170, 0.25));
+  box-shadow: 0 0 12px var(--accent-glow, rgba(227, 24, 55, 0.25));
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .participantEditBtn.saveBtn:hover {
-  background: var(--accent-dim, #00a884);
+  background: var(--accent-dim, #be122c);
   transform: translateY(-1px);
-  box-shadow: 0 0 16px var(--accent-glow, rgba(0, 212, 170, 0.25));
+  box-shadow: 0 0 16px var(--accent-glow, rgba(227, 24, 55, 0.25));
 }
 
 .participantInfo .displayNameEditRow {
@@ -306,7 +306,7 @@
 
 .micLevelBar {
   height: 100%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border-radius: 3px;
   transition: width 0.1s ease;
 }
@@ -321,8 +321,8 @@
   margin: 0.5rem 0 0;
   font-size: 0.8125rem;
   color: var(--text-muted, #888);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.3);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.3);
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
 }
@@ -381,8 +381,8 @@
 }
 
 .participantCard[data-host] {
-  border-color: rgba(0, 212, 170, 0.3);
-  background: rgba(0, 212, 170, 0.06);
+  border-color: rgba(227, 24, 55, 0.3);
+  background: rgba(227, 24, 55, 0.06);
 }
 
 .participantRoleIcon {
@@ -406,7 +406,7 @@
 }
 
 .participantCard[data-host] .participantRoleIcon {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .participantInfo {
@@ -454,18 +454,18 @@
 
 .muteBtn {
   padding: 0.25rem;
-  color: var(--accent, #00d4aa);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
+  color: var(--accent, #e31837);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.2);
   border-radius: var(--radius, 8px);
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
 .muteBtn:hover {
-  background: rgba(0, 212, 170, 0.15);
-  border-color: var(--accent, #00d4aa);
-  color: var(--accent, #00d4aa);
+  background: rgba(227, 24, 55, 0.15);
+  border-color: var(--accent, #e31837);
+  color: var(--accent, #e31837);
 }
 
 .disconnectBtn {
@@ -527,7 +527,7 @@
 
 .recordRowMuteBtn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .recordRowMuteBtn:disabled {
@@ -570,7 +570,7 @@
 .recordSegmentBtn:hover,
 .stopRecordBtn:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .stopRecordBtn {
@@ -602,8 +602,8 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text, #e5e5e5);
-  background: var(--accent, #00d4aa);
-  border: 1px solid var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border: 1px solid var(--accent, #e31837);
   border-radius: 6px;
   cursor: pointer;
 }
@@ -611,3 +611,12 @@
 .migrateBtn:hover {
   filter: brightness(1.1);
 }
+
+/* Recording controls keep their original behavior in a clearer studio dock. */
+.panel { background: #141418; border: 1px solid #3b333e; border-radius: 14px; box-shadow: 0 18px 65px #0009; padding: 20px; gap: 16px; }
+.header { padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.title { font-weight: 500; letter-spacing: -.02em; }
+.participant { border: 1px solid #323239; background: #1a1a20; border-radius: 9px; padding: 12px; }
+.recordSection { border-top: 1px solid var(--border); padding-top: 16px; }
+.micLevelBar { background: #5ddeae; border-radius: 2px; }
+.iconBtnActive, .iconBtnActive:hover { color: white !important; }

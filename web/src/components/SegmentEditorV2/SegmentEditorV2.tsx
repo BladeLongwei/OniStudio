@@ -2239,7 +2239,7 @@ export function SegmentEditorV2({
           <div className={styles.segmentEditorV2Header}>
             <div className={styles.segmentEditorV2HeaderLeft}>
               <Dialog.Title className={styles.dialogTitle}>
-                Advanced Editor: {segmentName || 'Section'}
+                Multitrack studio: {segmentName || 'Section'}
               </Dialog.Title>
               <Dialog.Description id="segment-editor-v2-desc" className={styles.srOnly}>
                 Multitrack clip timeline. Blade, trim, and delete clips. Soft trims skip on

@@ -101,8 +101,8 @@
 }
 
 .close:hover {
-  background: rgba(0, 212, 170, 0.14);
-  border-color: rgba(0, 212, 170, 0.45);
+  background: rgba(227, 24, 55, 0.14);
+  border-color: rgba(227, 24, 55, 0.45);
   color: var(--text);
 }
 
@@ -151,7 +151,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);

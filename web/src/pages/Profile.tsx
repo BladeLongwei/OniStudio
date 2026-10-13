@@ -284,6 +284,7 @@ export function Profile() {
     return (
       <div className={styles.page}>
         <header className={styles.hero}>
+          <p className="oni-workspace-eyebrow">ONI STUDIO / YOUR ACCOUNT</p>
           <h1 className={styles.heroTitle}>Profile</h1>
           <p className={styles.heroSub}>
             Your account details and settings.{' '}
@@ -306,7 +307,8 @@ export function Profile() {
   return (
     <div className={styles.page}>
       <header className={styles.hero}>
-        <h1 className={styles.heroTitle}>Profile</h1>
+        <p className="oni-workspace-eyebrow">ONI STUDIO / YOUR ACCOUNT</p>
+          <h1 className={styles.heroTitle}>Profile</h1>
         <p className={styles.heroSub}>
           Your account details and settings.{' '}
           <Link to="/contact" className={styles.heroLink}>Contact site administrators.</Link>

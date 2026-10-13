@@ -18,7 +18,7 @@ export interface EpisodeSectionsPanelProps {
   onAddLibrary: () => void;
   /** Upload a local audio file as a new recorded section. */
   onUploadAudioFile?: (file: File) => void;
-  /** Upload a HarborFM segment project zip as a new section. */
+  /** Upload a ONI Studio segment project zip as a new section. */
   onUploadSegmentZip?: (file: File) => void;
   /** True while an audio or zip upload is in flight. */
   uploadBusy?: boolean;
@@ -108,7 +108,7 @@ function SectionsUploadActions({
             </span>
             <span className={styles.sectionsUploadBtnText}>
               <span className={styles.sectionsUploadBtnLabel}>Upload Segment Zip</span>
-              <span className={styles.sectionsUploadBtnHint}>HarborFM segment project</span>
+              <span className={styles.sectionsUploadBtnHint}>ONI Studio segment project</span>
             </span>
           </span>
         ) : (
@@ -123,7 +123,7 @@ function SectionsUploadActions({
             </span>
             <span className={styles.sectionsUploadBtnText}>
               <span className={styles.sectionsUploadBtnLabel}>Upload Segment Zip</span>
-              <span className={styles.sectionsUploadBtnHint}>HarborFM segment project</span>
+              <span className={styles.sectionsUploadBtnHint}>ONI Studio segment project</span>
             </span>
           </button>
         )

@@ -35,7 +35,7 @@ export function FeedSiteHeader({ flush = false }: { flush?: boolean } = {}) {
           to="/feed"
           className={flush ? `${styles.logo} ${styles.logoFluid}` : styles.logo}
         >
-          <img src="/favicon.svg" alt="" className={styles.logoIcon} />
+          <img src="/oni-mark.svg" alt="" className={styles.logoIcon} />
           {siteName}
         </Link>
         <Link

@@ -45,14 +45,14 @@
   border: 2px solid var(--accent);
   border-radius: var(--radius);
   cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0, 212, 170, 0.25);
+  box-shadow: 0 2px 12px rgba(227, 24, 55, 0.25);
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .joinCallBtn:hover {
   background: var(--bg);
   border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(0, 212, 170, 0.35);
+  box-shadow: 0 4px 16px rgba(227, 24, 55, 0.35);
 }
 
 .card {
@@ -266,7 +266,7 @@
   padding: 0.625rem 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -482,4 +482,29 @@ button.footerActionLink {
   .footerBelowCardSep {
     display: none;
   }
+}
+
+/* ONI Studio entrance. */
+.wrap { background-image: radial-gradient(ellipse at 10% 30%, rgba(227,24,55,.10), transparent 50%); }
+.card { background: #141417; box-shadow: 0 24px 80px #0005; border-radius: 14px; padding: 36px; }
+.title { color: var(--text); }
+.brandIcon { width: 42px; height: 42px; }
+.input { min-height: 46px; background: #0c0c0f; border-radius: 7px; }
+.studioIntro { width: min(540px,100%); margin-bottom: 32px; }
+.studioIntro h2 { font-size: clamp(2.5rem,5vw,4.6rem); line-height: 1.04; letter-spacing: -.055em; margin: 28px 0; font-weight: 600; }
+.studioIntro > p:not(.eyebrow) { color: var(--text-muted); font-size: 1.03rem; line-height: 1.8; max-width: 430px; }
+.eyebrow { color: #ff6078; font-size: .68rem; font-weight: 700; letter-spacing: .15em; }
+.studioCapabilities { display: flex; gap: 28px; padding: 30px 0; border-top: 1px solid var(--border); margin-top: 38px; font-size: .8rem; color: #ddd; }
+.studioIntro small { color: var(--text-muted); font-size: .72rem; }
+@media (min-width: 1000px) {
+  .wrap:has(.studioIntro) { flex-direction: row; gap: clamp(48px,8vw,140px); padding: 64px; }
+  .studioIntro { margin: 0; }
+  .wrap:has(.studioIntro) { flex-wrap: wrap; }
+  .wrap:has(.studioIntro) .welcomeBanner { flex-basis: 100%; }
+}
+@media (max-width: 999px) {
+  .studioIntro { text-align: center; padding: 16px 0; }
+  .studioIntro h2 { font-size: 2.6rem; margin: 16px 0; }
+  .studioIntro > p:not(.eyebrow) { margin: 0 auto; }
+  .studioCapabilities, .studioIntro small { display: none; }
 }

@@ -42,7 +42,7 @@
 
 .iconBtn:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .title {
@@ -81,7 +81,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -90,7 +90,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -151,8 +151,8 @@
 
 .loadMoreBtn:hover {
   background: var(--bg-muted, #252525);
-  color: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .soundList {
@@ -210,13 +210,13 @@
 
 .playPauseBtn:hover:not(:disabled) {
   background: var(--bg-elevated, #1a1a1a);
-  color: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .playPauseBtn[data-playing] {
-  color: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .playPauseBtn:disabled {
@@ -247,12 +247,12 @@
 }
 
 .waveformPlaceholder:hover {
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .waveformPlaceholderFill {
   height: 100%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border-radius: 2px;
   transition: width 0.05s linear;
 }

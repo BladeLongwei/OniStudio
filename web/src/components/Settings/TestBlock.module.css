@@ -42,8 +42,8 @@
 }
 
 .noticeSuccess {
-  background: rgba(0, 212, 170, 0.08);
-  border-color: rgba(0, 212, 170, 0.3);
+  background: rgba(227, 24, 55, 0.08);
+  border-color: rgba(227, 24, 55, 0.3);
 }
 
 .noticeError {

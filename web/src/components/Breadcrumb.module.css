@@ -56,16 +56,16 @@
 /* Link card */
 .card:not(.current):hover {
   color: var(--accent);
-  border-color: rgba(0, 212, 170, 0.35);
-  background: rgba(0, 212, 170, 0.06);
+  border-color: rgba(227, 24, 55, 0.35);
+  background: rgba(227, 24, 55, 0.06);
 }
 
 /* Current (active) card - same min-height, no underline, slightly emphasized */
 .current {
   color: var(--text);
   font-weight: 500;
-  border-color: rgba(0, 212, 170, 0.25);
-  background: rgba(0, 212, 170, 0.08);
+  border-color: rgba(227, 24, 55, 0.25);
+  background: rgba(227, 24, 55, 0.08);
   cursor: default;
 }
 

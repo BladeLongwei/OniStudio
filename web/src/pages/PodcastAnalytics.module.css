@@ -453,7 +453,7 @@
 }
 
 .badgeHuman {
-  background: rgba(0, 212, 170, 0.12);
+  background: rgba(227, 24, 55, 0.12);
   color: var(--accent);
 }
 
@@ -508,7 +508,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: 6px;
@@ -548,10 +548,14 @@
 .chartTypeBtnActive {
   color: var(--accent);
   border-color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
 }
 
 .chartContainer {
   min-height: 280px;
   width: 100%;
 }
+
+.card { background: #131316; border-radius: 12px; box-shadow: none; }
+.cardTitle { font-weight: 500; letter-spacing: -.035em; }
+.sectionTitle { font-weight: 500; letter-spacing: -.015em; }

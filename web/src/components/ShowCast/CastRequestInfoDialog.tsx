@@ -46,7 +46,7 @@ export function CastRequestInfoDialog({
             </Dialog.Close>
           </div>
           <Dialog.Description className={styles.dialogDescription}>
-            HarborFM will email {name}
+            ONI Studio will email {name}
             {email ? ` at ${email}` : ''} a self-serve link to update their preferred
             name, nickname, description, photo, and social links. The message includes
             their current photo (when available) and current social links. Reply-To is

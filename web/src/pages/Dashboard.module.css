@@ -77,3 +77,10 @@
     gap: 0.875rem;
   }
 }
+
+.collectionHeading { display: flex; align-items: center; justify-content: space-between; margin: 12px 0 20px; gap: 12px; }
+.collectionHeading h2 { font-size: 1.12rem; font-weight: 500; letter-spacing: -.02em; margin: 0; }
+.collectionHeading span { color: var(--text-muted); font-size: .73rem; }
+.grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+@media(max-width:1250px) { .grid { grid-template-columns: 1fr; } }
+@media(max-width:600px) { .collectionHeading { align-items: flex-start; flex-direction: column; } }

@@ -4,7 +4,7 @@ import { WifiOff, RotateCcw } from 'lucide-react';
 
 export function ServerDown({
   title = 'Server is offline',
-  message = 'Could not reach HarborFM server. Make sure the server is running, then try again.',
+  message = 'Could not reach ONI Studio server. Make sure the server is running, then try again.',
   details,
   onRetry,
 }: {
@@ -17,8 +17,8 @@ export function ServerDown({
     <div className={styles.wrap}>
       <div className={`${styles.card} ${ui.card}`}>
         <div className={styles.brand}>
-          <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-          <h1 className={styles.title}>HarborFM</h1>
+          <img src="/oni-mark.svg" alt="" className={styles.brandIcon} />
+          <h1 className={styles.title}>ONI Studio</h1>
         </div>
         <div className={ui.content}>
           <div className={ui.header}>

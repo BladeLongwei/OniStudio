@@ -84,7 +84,7 @@
 
 .sortBtnActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   box-shadow: 0 0 16px var(--accent-glow);
 }
 
@@ -268,3 +268,5 @@
     justify-content: center;
   }
 }
+
+.title { font-weight: 500; letter-spacing: -.04em; }
