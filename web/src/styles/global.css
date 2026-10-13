@@ -1,16 +1,16 @@
 /* HarborFM - dark mode first, neon accents, no Tailwind */
 :root {
-  --bg: #0c0e12;
-  --bg-elevated: #14171e;
-  --bg-muted: #1a1e28;
+  --bg: #09090b;
+  --bg-elevated: #131316;
+  --bg-muted: #1c1c21;
   --text: #e8eaef;
-  --text-muted: #8b92a3;
-  --accent: #00d4aa;
-  --accent-dim: #00a884;
-  --accent-glow: rgba(0, 212, 170, 0.25);
-  --border: #2a2f3d;
+  --text-muted: #a1a1aa;
+  --accent: #e31837;
+  --accent-dim: #be122c;
+  --accent-glow: rgba(227, 24, 55, 0.25);
+  --border: #29292f;
   --error: #ff6b6b;
-  --success: #00d4aa;
+  --success: #4ade80;
   --radius: 8px;
   --font-sans: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -128,7 +128,7 @@ input, textarea, select {
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 .toggle input:checked + .toggle__track {
-  background: rgba(0, 212, 170, 0.2);
+  background: rgba(227, 24, 55, 0.2);
   border-color: var(--accent);
 }
 .toggle input:checked + .toggle__track::after {
@@ -190,4 +190,11 @@ body.scanlines::after {
   );
   pointer-events: none;
   z-index: 9999;
+}
+
+/* Calm, accessible studio surfaces across the existing production tools. */
+:focus-visible { outline: 2px solid #ff6078; outline-offset: 3px; }
+::selection { background: #e3183766; color: white; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

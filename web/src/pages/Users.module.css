@@ -47,7 +47,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: var(--radius);
@@ -271,7 +271,7 @@
 .actionBtnDanger:hover {
   background: var(--error);
   border-color: var(--error);
-  color: var(--bg);
+  color: #fff;
 }
 
 @media (max-width: 640px) {
@@ -426,8 +426,8 @@
 }
 
 .dialogClose:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14);
-  border-color: rgba(0, 212, 170, 0.45);
+  background: rgba(227, 24, 55, 0.14);
+  border-color: rgba(227, 24, 55, 0.45);
   color: var(--text);
 }
 
@@ -514,7 +514,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: var(--radius);
@@ -623,12 +623,12 @@
 }
 
 .roleToggleBtnActive {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
 }
 
 .roleToggleBtnActive:hover {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent-dim);
 }
 

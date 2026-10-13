@@ -65,7 +65,7 @@
 
 .tab[aria-selected="true"] {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
   border-left: 3px solid var(--accent);
   padding-left: calc(0.75rem - 3px);
 }
@@ -412,7 +412,7 @@
   cursor: pointer;
 }
 .exampleBtn:hover {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }
 
 .ssoBlock {
@@ -453,7 +453,7 @@
 }
 
 .addProviderBtn:hover {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }
 
 .ssoEmpty {
@@ -631,7 +631,7 @@
   height: 1.75rem;
   padding: 0;
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
@@ -1232,11 +1232,11 @@ textarea.input:focus {
   background: var(--bg-elevated);
 }
 .llmToggleBtnActive {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
 }
 .llmToggleBtnActive:hover {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent-dim);
 }
 
@@ -1337,7 +1337,7 @@ textarea.input:focus {
   padding: 0.5rem 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -1380,7 +1380,7 @@ textarea.input:focus {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: 16px;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 212, 170, 0.15);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(227, 24, 55, 0.15);
 }
 
 .floatingSaveLabel {
@@ -1393,7 +1393,7 @@ textarea.input:focus {
   padding: 0.5rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);

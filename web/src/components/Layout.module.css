@@ -87,7 +87,7 @@
   color: var(--accent);
   text-decoration: none;
   border-radius: var(--radius);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
 }
 .navLinkActive:hover {
   text-decoration: none;
@@ -162,7 +162,7 @@
 
 .adminDropdownLinkActive {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
 }
 
 .adminDropdownLinkActive:hover {
@@ -198,7 +198,7 @@
 }
 .profileLinkActive {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
 }
 .profileLinkActive:hover {
   color: var(--accent);
@@ -355,7 +355,7 @@
 
 .mobileNavLinkActive {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
 }
 
 .mobileNavLinkActive:hover {
@@ -470,4 +470,25 @@
   .main {
     padding: 1rem 0.75rem 2rem;
   }
+}
+
+/* ONI Studio: restrained workspace shell. */
+.layout { background-image: none; }
+.header { background: #101013; }
+.brandText { display: block; font-size: 1.25rem; letter-spacing: -.035em; }
+.brandText strong { font-weight: 400; color: #c7c7ce; }
+.brandText small { display: block; margin-top: 3px; font-size: .56rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.logoIcon { width: 36px; height: 36px; }
+@media (min-width: 1100px) {
+  .header { position: fixed; inset: 0 auto 0 0; width: 232px; border-right: 1px solid var(--border); border-bottom: 0; z-index: 90; }
+  .headerContainer { height: 100%; flex-direction: column; align-items: stretch; padding: 32px 20px 24px; }
+  .headerLeft { flex-direction: column; align-items: stretch; }
+  .logo { padding: 0 6px 32px; }
+  .navBar { flex-direction: column; align-items: stretch; margin: 24px 0 0; gap: 8px; }
+  .navLink, .navLinkActive { padding: 13px 16px; font-size: .88rem; }
+  .navLinkActive { background: rgba(227,24,55,.09); color: #ff6078; box-shadow: inset 2px 0 var(--accent); }
+  .adminDropdownWrap .navLink, .adminDropdownWrap .navLinkActive { width: 100%; padding: 13px 16px; font-size: .88rem; }
+  .adminDropdown { left: 100%; top: 0; margin-left: 6px; }
+  .nav { flex-direction: column; align-items: stretch; gap: 14px; border-top: 1px solid var(--border); padding-top: 22px; }
+  .main { margin: 0 0 0 232px; width: calc(100% - 232px); max-width: none; padding: 52px clamp(28px,4vw,72px); }
 }

@@ -9,7 +9,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(800px 240px at 20% -20%, rgba(0, 212, 170, 0.10), transparent 60%),
+    radial-gradient(800px 240px at 20% -20%, rgba(227, 24, 55, 0.10), transparent 60%),
     radial-gradient(600px 220px at 120% 0%, rgba(255, 107, 107, 0.10), transparent 55%);
 }
 

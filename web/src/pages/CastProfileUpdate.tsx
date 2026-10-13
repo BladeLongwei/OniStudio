@@ -202,7 +202,7 @@ export function CastProfileUpdate() {
         <div className={authStyles.wrap}>
           <div className={authStyles.card}>
             <div className={authStyles.brand}>
-              <img src="/favicon.svg" alt="" className={authStyles.brandIcon} />
+              <img src="/oni-mark.svg" alt="" className={authStyles.brandIcon} />
               <h1 className={authStyles.title}>ONI Studio</h1>
             </div>
             <p className={styles.lead}>Loading your profile form...</p>
@@ -218,7 +218,7 @@ export function CastProfileUpdate() {
         <div className={authStyles.wrap}>
           <div className={authStyles.card}>
             <div className={authStyles.brand}>
-              <img src="/favicon.svg" alt="" className={authStyles.brandIcon} />
+              <img src="/oni-mark.svg" alt="" className={authStyles.brandIcon} />
               <h1 className={authStyles.title}>ONI Studio</h1>
             </div>
             <h2 className={styles.heading}>Link Unavailable</h2>
@@ -239,7 +239,7 @@ export function CastProfileUpdate() {
         <div className={authStyles.wrap}>
           <div className={authStyles.card}>
             <div className={authStyles.brand}>
-              <img src="/favicon.svg" alt="" className={authStyles.brandIcon} />
+              <img src="/oni-mark.svg" alt="" className={authStyles.brandIcon} />
               <h1 className={authStyles.title}>ONI Studio</h1>
             </div>
             <h2 className={styles.heading}>Thanks for Updating</h2>
@@ -261,7 +261,7 @@ export function CastProfileUpdate() {
       <div className={authStyles.wrap}>
         <div className={`${authStyles.card} ${styles.formCard}`}>
           <div className={authStyles.brand}>
-            <img src="/favicon.svg" alt="" className={authStyles.brandIcon} />
+            <img src="/oni-mark.svg" alt="" className={authStyles.brandIcon} />
             <h1 className={authStyles.title}>ONI Studio</h1>
           </div>
           <h2 className={styles.heading}>Update Your Cast Profile</h2>

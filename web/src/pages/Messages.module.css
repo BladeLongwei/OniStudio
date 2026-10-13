@@ -84,7 +84,7 @@
 
 .sortBtnActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   box-shadow: 0 0 16px var(--accent-glow);
 }
 

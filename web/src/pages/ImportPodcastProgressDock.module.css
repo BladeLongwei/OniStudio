@@ -59,8 +59,8 @@
 }
 
 .dismiss:hover {
-  background: rgba(0, 212, 170, 0.12);
-  border-color: rgba(0, 212, 170, 0.45);
+  background: rgba(227, 24, 55, 0.12);
+  border-color: rgba(227, 24, 55, 0.45);
   color: var(--text);
 }
 

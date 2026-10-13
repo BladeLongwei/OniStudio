@@ -70,12 +70,12 @@ export function Layout() {
         <div className={styles.headerContainer}>
           <div className={styles.headerLeft}>
             <Link to="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
-              <img src="/favicon.svg" alt="" className={styles.logoIcon} />
-              ONI Studio
+              <img src="/oni-mark.svg" alt="" className={styles.logoIcon} />
+              <span className={styles.brandText}>ONI <strong>Studio</strong><small>Onyx Interactive Network</small></span>
             </Link>
             <nav className={styles.navBar}>
               <NavLink to="/" end className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>
-                Home
+                Studio
               </NavLink>
               <NavLink to="/library" className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>
                 Library

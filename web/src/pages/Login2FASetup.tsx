@@ -134,7 +134,7 @@ export function Login2FASetup() {
       <div className={styles.wrap}>
         <div className={styles.card}>
           <div className={styles.brand}>
-            <img src="/favicon.svg" alt="" className={styles.brandIcon} />
+            <img src="/oni-mark.svg" alt="" className={styles.brandIcon} />
             <h1 className={styles.title}>ONI Studio</h1>
           </div>
           <div className={styles.loginHeader}>

@@ -86,7 +86,7 @@
   padding: 0.5rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: 6px;
@@ -203,15 +203,15 @@
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.2);
   border-radius: var(--radius);
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
 .generateFieldBtn:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -399,7 +399,7 @@
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -472,8 +472,8 @@
   height: 2.25rem;
   border-radius: calc(var(--radius) - 2px);
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
-  border: 1px solid rgba(0, 212, 170, 0.22);
+  background: rgba(227, 24, 55, 0.1);
+  border: 1px solid rgba(227, 24, 55, 0.22);
 }
 
 .sectionsUploadBtnText {
@@ -497,14 +497,14 @@
 }
 
 .sectionsUploadBtn:hover:not(:disabled) {
-  border-color: rgba(0, 212, 170, 0.45);
-  background: color-mix(in srgb, var(--bg-elevated) 88%, rgba(0, 212, 170, 0.12) 12%);
+  border-color: rgba(227, 24, 55, 0.45);
+  background: color-mix(in srgb, var(--bg-elevated) 88%, rgba(227, 24, 55, 0.12) 12%);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .sectionsUploadBtn:hover:not(:disabled) .sectionsUploadBtnIcon {
-  background: rgba(0, 212, 170, 0.16);
-  border-color: rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.16);
+  border-color: rgba(227, 24, 55, 0.35);
 }
 
 .sectionsUploadBtn:disabled,
@@ -546,11 +546,11 @@
 .addSectionChoiceBtnPrimary {
   color: var(--accent);
   background: var(--bg-elevated);
-  border-color: rgba(0, 212, 170, 0.35);
+  border-color: rgba(227, 24, 55, 0.35);
   box-shadow: none;
 }
 .addSectionChoiceBtnPrimary:hover {
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
   border-color: var(--accent);
   box-shadow: none;
   color: var(--accent);
@@ -582,8 +582,8 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
-  border: 1px solid rgba(0, 212, 170, 0.3);
+  background: rgba(227, 24, 55, 0.1);
+  border: 1px solid rgba(227, 24, 55, 0.3);
   border-radius: var(--radius);
   cursor: pointer;
   display: inline-flex;
@@ -592,7 +592,7 @@
   transition: background 0.15s, border-color 0.15s;
 }
 .addBtn:hover {
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
   border-color: var(--accent);
 }
 
@@ -744,7 +744,7 @@
 }
 .timelineToolbarBtnActive {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
 }
 .timelineWaveformWithHandles {
   display: flex;
@@ -969,9 +969,9 @@
 .segmentProgressBadge {
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--accent, #00d4aa);
-  background: rgba(0, 212, 170, 0.15);
-  border: 1px solid rgba(0, 212, 170, 0.4);
+  color: var(--accent, #e31837);
+  background: rgba(227, 24, 55, 0.15);
+  border: 1px solid rgba(227, 24, 55, 0.4);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   flex-shrink: 0;
@@ -1089,7 +1089,7 @@
 }
 .segmentBtn.timelineToolbarModeBtn.timelineToolbarBtnActive {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
 }
 .segmentBtn.timelineToolbarActionBtn {
   color: var(--text-muted);
@@ -1100,7 +1100,7 @@
 }
 .segmentBtn.timelineToolbarActionBtn.timelineToolbarBtnActive {
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
 }
 
 .segmentBtnDanger {
@@ -1119,8 +1119,8 @@
   margin-bottom: 1.25rem;
   padding: 1.25rem;
   border-radius: 16px;
-  border: 1px solid rgba(0, 212, 170, 0.35);
-  background: linear-gradient(135deg, rgba(0, 212, 170, 0.08), rgba(0, 0, 0, 0)), var(--bg-elevated);
+  border: 1px solid rgba(227, 24, 55, 0.35);
+  background: linear-gradient(135deg, rgba(227, 24, 55, 0.08), rgba(0, 0, 0, 0)), var(--bg-elevated);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   position: relative;
 }
@@ -1131,7 +1131,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(120deg, rgba(0, 212, 170, 0.5), rgba(0, 0, 0, 0));
+  background: linear-gradient(120deg, rgba(227, 24, 55, 0.5), rgba(0, 0, 0, 0));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -1232,7 +1232,7 @@
   height: 1.75rem;
   padding: 0;
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
@@ -1327,7 +1327,7 @@
   padding: 0.45rem 1.15rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: 999px;
@@ -1706,7 +1706,7 @@
 }
 
 .actionTileTeal .actionTileGlyph {
-  background: rgba(0, 212, 170, 0.42);
+  background: rgba(227, 24, 55, 0.42);
 }
 
 .actionTileBlue .actionTileGlyph {
@@ -1733,7 +1733,7 @@
   background: rgba(6, 182, 212, 0.48);
 }
 
-.actionTileTeal { background-color: rgba(0, 212, 170, 0.08); }
+.actionTileTeal { background-color: rgba(227, 24, 55, 0.08); }
 .actionTileBlue { background-color: rgba(59, 130, 246, 0.08); }
 .actionTilePurple { background-color: rgba(168, 85, 247, 0.08); }
 .actionTileAmber { background-color: rgba(245, 158, 11, 0.08); }
@@ -1960,7 +1960,7 @@
   padding: 0.6rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -2185,7 +2185,7 @@
   padding: 0.6rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -2291,8 +2291,8 @@
   gap: 0.75rem;
   padding: 1.25rem;
   border-radius: 16px;
-  border: 1px solid rgba(0, 212, 170, 0.35);
-  background: linear-gradient(135deg, rgba(0, 212, 170, 0.1), rgba(0, 0, 0, 0)) , var(--bg-elevated);
+  border: 1px solid rgba(227, 24, 55, 0.35);
+  background: linear-gradient(135deg, rgba(227, 24, 55, 0.1), rgba(0, 0, 0, 0)) , var(--bg-elevated);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
@@ -2357,7 +2357,7 @@
   padding: 0.75rem 1.25rem;
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -2386,15 +2386,15 @@
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
-  border: 1px solid rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.1);
+  border: 1px solid rgba(227, 24, 55, 0.35);
   border-radius: var(--radius);
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 .generateBarTranscriptBtn:hover {
-  background: rgba(0, 212, 170, 0.18);
-  border-color: rgba(0, 212, 170, 0.5);
+  background: rgba(227, 24, 55, 0.18);
+  border-color: rgba(227, 24, 55, 0.5);
   transform: translateY(-1px);
 }
 .generateBarTranscriptBtn:disabled {
@@ -2403,8 +2403,8 @@
   transform: none;
 }
 .generateBarTranscriptBtn:hover:disabled {
-  background: rgba(0, 212, 170, 0.1);
-  border-color: rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.1);
+  border-color: rgba(227, 24, 55, 0.35);
   transform: none;
 }
 
@@ -2415,7 +2415,7 @@
   padding: 0.75rem 1.25rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: var(--radius);
@@ -2485,7 +2485,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -2578,7 +2578,7 @@
 .success {
   font-size: 0.875rem;
   color: var(--text);
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
   border: 1px solid var(--success);
   border-radius: var(--radius);
   padding: 0.75rem 1rem;
@@ -2851,7 +2851,7 @@
   color: var(--text);
 }
 .recordChoiceBtnPrimary {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border-color: var(--accent);
   box-shadow: 0 0 20px var(--accent-glow);
@@ -2860,7 +2860,7 @@
   background: var(--accent-dim);
   border-color: var(--accent-dim);
   box-shadow: 0 0 28px var(--accent-glow);
-  color: var(--bg);
+  color: #fff;
 }
 .recordChoiceBtnPrimary:disabled {
   opacity: 0.7;
@@ -2898,7 +2898,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: var(--radius);
@@ -2912,7 +2912,7 @@
   background: var(--accent-dim);
   border-color: var(--accent-dim);
   box-shadow: 0 0 20px var(--accent-glow);
-  color: var(--bg);
+  color: #fff;
 }
 .recordFooterPrimaryBtn:disabled {
   opacity: 0.7;
@@ -2934,13 +2934,13 @@
 }
 .recordFooterSettingsBtn:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .recordFooterSettingsBtnActive {
-  background: rgba(0, 212, 170, 0.2);
-  border-color: var(--accent, #00d4aa);
-  color: var(--accent, #00d4aa);
+  background: rgba(227, 24, 55, 0.2);
+  border-color: var(--accent, #e31837);
+  color: var(--accent, #e31837);
 }
 
 .recordSettingsPanel {
@@ -2993,7 +2993,7 @@
 
 .recordSettingsSelect:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .recordSettingsVolume {
@@ -3021,7 +3021,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -3030,7 +3030,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -3060,7 +3060,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -3071,7 +3071,7 @@
 }
 
 .recordListenBtn[aria-pressed="true"] {
-  background: var(--accent-dim, #00a884);
+  background: var(--accent-dim, #be122c);
 }
 
 .recordSettingsEmpty {
@@ -3210,11 +3210,11 @@
   background: var(--bg-elevated);
 }
 .librarySortBtnActive {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
 }
 .librarySortBtnActive:hover {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent-dim);
 }
 
@@ -3259,7 +3259,7 @@
 }
 .libraryItem:hover {
   border-color: var(--accent);
-  background: rgba(0, 212, 170, 0.06);
+  background: rgba(227, 24, 55, 0.06);
 }
 
 .libraryUploadForm {
@@ -3652,8 +3652,8 @@
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 .dialogClose:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14);
-  border-color: rgba(0, 212, 170, 0.45);
+  background: rgba(227, 24, 55, 0.14);
+  border-color: rgba(227, 24, 55, 0.45);
   color: var(--text);
 }
 .dialogClose:disabled {
@@ -3748,15 +3748,15 @@
 }
 .statusToggleActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 .statusToggleActive:hover {
   background: var(--accent-dim);
-  color: var(--bg);
+  color: #fff;
 }
 .statusToggleActive:disabled:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
 .transcriptToggleWrap {
@@ -3786,11 +3786,11 @@
 }
 .transcriptToggleActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 .transcriptToggleActive:hover {
   background: var(--accent-dim);
-  color: var(--bg);
+  color: #fff;
 }
 .transcriptAsk {
   display: flex;
@@ -3819,7 +3819,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -3916,7 +3916,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -4610,8 +4610,8 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .detailsSummaryStatusBadgePublished {
   color: var(--success);
-  background: rgba(0, 212, 170, 0.12);
-  border: 1px solid rgba(0, 212, 170, 0.25);
+  background: rgba(227, 24, 55, 0.12);
+  border: 1px solid rgba(227, 24, 55, 0.25);
 }
 
 .detailsSummaryActions {
@@ -4691,7 +4691,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   border-radius: var(--radius);
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -4750,8 +4750,8 @@ a.manageSegmentAction .manageSegmentActionHint {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.2);
   border-radius: var(--radius);
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
@@ -4759,7 +4759,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 }
 
 .detailsSummaryEditBtn:hover {
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -4843,15 +4843,15 @@ a.manageSegmentAction .manageSegmentActionHint {
   justify-content: center;
   min-height: 34px;
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.2);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.2);
   border-radius: var(--radius);
   cursor: pointer;
   transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
 .detailsSummaryShareBtn:hover {
-  background: rgba(0, 212, 170, 0.15);
+  background: rgba(227, 24, 55, 0.15);
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -5202,7 +5202,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   padding: 0.75rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -5441,8 +5441,8 @@ a.manageSegmentAction .manageSegmentActionHint {
   border-color: var(--accent);
 }
 .generateVideoThumbnailCardActive {
-  border: 2px solid var(--accent, #00d4aa);
-  box-shadow: 0 0 0 2px var(--accent-glow, rgba(0, 212, 170, 0.25));
+  border: 2px solid var(--accent, #e31837);
+  box-shadow: 0 0 0 2px var(--accent-glow, rgba(227, 24, 55, 0.25));
 }
 .generateVideoThumbnailImg {
   display: block;
@@ -5642,7 +5642,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .showNotesHeaderToggle:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .showNotesBody {
@@ -5716,14 +5716,14 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .showNotesGuestVisibilityBtnActive {
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .showNotesGuestVisibilityBtnActive:hover:not(:disabled) {
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
   filter: brightness(0.95);
 }
 
@@ -5791,9 +5791,9 @@ a.manageSegmentAction .manageSegmentActionHint {
 }
 
 .showNotesItemChecked .showNotesDiscussedLabel {
-  border-color: var(--accent, #00d4aa);
-  background: rgba(0, 212, 170, 0.12);
-  color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
+  background: rgba(227, 24, 55, 0.12);
+  color: var(--accent, #e31837);
 }
 
 .showNotesItemToolbar {
@@ -5837,7 +5837,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .showNotesDragHandle:hover:not(:disabled) {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .showNotesCheckbox {
@@ -5845,7 +5845,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   height: 18px;
   margin: 0;
   cursor: pointer;
-  accent-color: var(--accent, #00d4aa);
+  accent-color: var(--accent, #e31837);
 }
 
 .showNotesDiscussedLabel {
@@ -5905,19 +5905,19 @@ a.manageSegmentAction .manageSegmentActionHint {
 }
 
 .showNotesDurationChip:hover:not(:disabled) {
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
   color: var(--text, #e5e5e5);
 }
 
 .showNotesDurationChipActive {
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .showNotesDurationChipActive:hover:not(:disabled) {
   color: var(--bg, #0c0e12);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
   filter: brightness(0.95);
 }
 
@@ -5938,7 +5938,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .showNotesTextarea:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .showNotesTextarea:disabled {
@@ -5956,7 +5956,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -6013,8 +6013,8 @@ a.manageSegmentAction .manageSegmentActionHint {
   font-weight: 600;
   border-radius: 4px;
   color: var(--text, #e5e5e5);
-  background: rgba(0, 212, 170, 0.15);
-  border: 1px solid rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.15);
+  border: 1px solid rgba(227, 24, 55, 0.35);
 }
 
 .showNotesSubmittedTagAvoid {
@@ -6043,15 +6043,15 @@ a.manageSegmentAction .manageSegmentActionHint {
   padding: 0.35rem 0.65rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   background: transparent;
-  border: 1px solid rgba(0, 212, 170, 0.45);
+  border: 1px solid rgba(227, 24, 55, 0.45);
   border-radius: 6px;
   cursor: pointer;
 }
 
 .showNotesQuickAddBtn:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }
 
 .showNotesQuickAddBtn:disabled {
@@ -6256,7 +6256,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 .segmentEditorV2ToolActive {
   color: var(--accent);
   border-color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }
 
 .segmentEditorV2Tool:disabled {
@@ -6265,13 +6265,13 @@ a.manageSegmentAction .manageSegmentActionHint {
 }
 
 .segmentEditorV2Tool.segmentEditorV2SaveBtn {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border-color: var(--accent);
 }
 
 .segmentEditorV2Tool.segmentEditorV2SaveBtn:hover:not(:disabled) {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent-dim);
   border-color: var(--accent-dim);
 }
@@ -6480,7 +6480,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   line-height: 1.25;
   color: var(--text-muted);
   background: rgba(0, 80, 70, 0.45);
-  border: 1px solid rgba(0, 212, 170, 0.22);
+  border: 1px solid rgba(227, 24, 55, 0.22);
   border-radius: 3px;
   white-space: normal;
   overflow: hidden;
@@ -6574,7 +6574,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .segmentEditorV2LaneNameBtn:hover:not(:disabled) {
   color: var(--text);
-  background: rgba(0, 212, 170, 0.08);
+  background: rgba(227, 24, 55, 0.08);
 }
 
 .segmentEditorV2LaneNameBtn:disabled {
@@ -6600,7 +6600,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 .segmentEditorV2LaneCastBtn:hover:not(:disabled) {
   border-color: var(--accent);
   color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }
 
 .segmentEditorV2LaneCastBtn:disabled {
@@ -6641,7 +6641,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   font-weight: 600;
   border-radius: var(--radius);
   border: 1px solid var(--accent);
-  background: rgba(0, 212, 170, 0.12);
+  background: rgba(227, 24, 55, 0.12);
   color: var(--accent);
   cursor: default;
 }
@@ -6685,7 +6685,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 .segmentEditorV2LaneCtrlActive {
   color: var(--accent);
   border-color: var(--accent);
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }
 
 .segmentEditorV2LaneCtrl:disabled {
@@ -7171,7 +7171,7 @@ a.manageSegmentAction .manageSegmentActionHint {
   z-index: 2;
   padding: 0;
   border: none;
-  background: rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.35);
   cursor: col-resize;
   touch-action: none;
 }
@@ -7188,7 +7188,7 @@ a.manageSegmentAction .manageSegmentActionHint {
 
 .segmentEditorV2ClipHandleLeft:hover,
 .segmentEditorV2ClipHandleRight:hover {
-  background: rgba(0, 212, 170, 0.7);
+  background: rgba(227, 24, 55, 0.7);
 }
 
 .trackSettingsDialog {

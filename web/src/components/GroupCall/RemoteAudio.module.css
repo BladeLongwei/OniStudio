@@ -2,13 +2,13 @@
   margin: 0.25rem 0;
   padding: 0.25rem 0.5rem;
   font-size: 0.8125rem;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   background: transparent;
-  border: 1px solid var(--accent, #00d4aa);
+  border: 1px solid var(--accent, #e31837);
   border-radius: 4px;
   cursor: pointer;
 }
 
 .enableAudioBtn:hover {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(227, 24, 55, 0.1);
 }

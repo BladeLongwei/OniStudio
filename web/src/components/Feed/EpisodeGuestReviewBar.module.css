@@ -17,7 +17,7 @@
   right: 0;
   z-index: 1100;
   background: var(--bg-elevated, #14171e);
-  border-top: 3px solid var(--accent, #00d4aa);
+  border-top: 3px solid var(--accent, #e31837);
   padding: 0.875rem 1rem;
   padding-left: max(1rem, env(safe-area-inset-left, 0px));
   padding-right: max(1rem, env(safe-area-inset-right, 0px));
@@ -56,7 +56,7 @@
   margin: 0;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .error {
@@ -85,8 +85,8 @@
 }
 
 .approve {
-  background: var(--accent, #00d4aa);
-  border: 1px solid var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border: 1px solid var(--accent, #e31837);
   color: #0c0e12;
 }
 
@@ -108,8 +108,8 @@
 }
 
 .submitFeedback {
-  background: var(--accent, #00d4aa);
-  border: 1px solid var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border: 1px solid var(--accent, #e31837);
   color: #0c0e12;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .textarea:focus {
-  outline: 2px solid var(--accent, #00d4aa);
+  outline: 2px solid var(--accent, #e31837);
   outline-offset: 1px;
 }
 
