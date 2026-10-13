@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, User, ChevronDown, LogOut } from 'lucide-react';
+import { Menu, X, User, ChevronDown, LogOut, LayoutDashboard, FileAudio, Palette, MessageSquare } from 'lucide-react';
 import { useAuthStore } from '../store/auth';
 import { logout } from '../api/auth';
 import { useQueryClient } from '@tanstack/react-query';
@@ -75,18 +75,18 @@ export function Layout() {
             </Link>
             <nav className={styles.navBar}>
               <NavLink to="/" end className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>
-                Studio
+                <LayoutDashboard size={17} aria-hidden /> Studio
               </NavLink>
               <NavLink to="/library" className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>
-                Library
+                <FileAudio size={17} aria-hidden /> Library
               </NavLink>
               {user?.canImportTheme === 1 && (
                 <NavLink to="/themes" className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>
-                  Themes
+                  <Palette size={17} aria-hidden /> Themes
                 </NavLink>
               )}
               <NavLink to="/messages" className={({ isActive }) => isActive ? styles.navLinkActive : styles.navLink}>
-                Messages
+                <MessageSquare size={17} aria-hidden /> Messages
               </NavLink>
               {user?.role === 'admin' && (
                 <div

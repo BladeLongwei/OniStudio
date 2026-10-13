@@ -492,3 +492,12 @@
   .nav { flex-direction: column; align-items: stretch; gap: 14px; border-top: 1px solid var(--border); padding-top: 22px; }
   .main { margin: 0 0 0 232px; width: calc(100% - 232px); max-width: none; padding: 52px clamp(28px,4vw,72px); }
 }
+
+.navLink, .navLinkActive { display: inline-flex; align-items: center; gap: 12px; }
+.navLink svg, .navLinkActive svg { flex-shrink: 0; }
+@media(min-width:1100px) {
+  .main { padding-top: 32px; }
+  .navBar::before { content: 'WORKSPACE'; font-size: .56rem; font-weight: 600; letter-spacing: .16em; color: #777780; padding: 0 16px 10px; }
+  .headerLeft { height: 100%; }
+  .navBar { margin-top: 12px; }
+}

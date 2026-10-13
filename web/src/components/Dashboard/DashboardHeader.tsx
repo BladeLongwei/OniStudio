@@ -17,7 +17,7 @@ export function DashboardHeader({
       <div className={styles.headerLeft}>
         <p className={styles.eyebrow}>ONI STUDIO / WORKSPACE</p>
         <h1 className={styles.title}>
-          {isAdminView ? `Podcasts (${selectedUser?.email ?? 'Loading...'})` : 'Your production workspace'}
+          {isAdminView ? `Podcasts (${selectedUser?.email ?? 'Loading...'})` : 'Studio overview'}
         </h1>
         <p className={styles.subtitle}>
           {total != null

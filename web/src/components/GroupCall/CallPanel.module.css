@@ -611,3 +611,12 @@
 .migrateBtn:hover {
   filter: brightness(1.1);
 }
+
+/* Recording controls keep their original behavior in a clearer studio dock. */
+.panel { background: #141418; border: 1px solid #3b333e; border-radius: 14px; box-shadow: 0 18px 65px #0009; padding: 20px; gap: 16px; }
+.header { padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.title { font-weight: 500; letter-spacing: -.02em; }
+.participant { border: 1px solid #323239; background: #1a1a20; border-radius: 9px; padding: 12px; }
+.recordSection { border-top: 1px solid var(--border); padding-top: 16px; }
+.micLevelBar { background: #5ddeae; border-radius: 2px; }
+.iconBtnActive, .iconBtnActive:hover { color: white !important; }
