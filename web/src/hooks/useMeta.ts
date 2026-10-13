@@ -6,7 +6,7 @@ const DEFAULT_DESCRIPTION = 'ONI Studio - Create and manage your podcast with ea
 const DEFAULT_TITLE = 'ONI Studio';
 const DEFAULT_APPLE_TITLE = 'ONI Studio';
 const OG_IMAGE = DEFAULT_OG_IMAGE_PATH;
-const DEFAULT_FAVICON = '/favicon.png';
+const DEFAULT_FAVICON = '/oni-mark.svg';
 
 function toAbsoluteUrl(url: string): string {
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
