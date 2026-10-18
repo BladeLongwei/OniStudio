@@ -707,7 +707,7 @@ export function GenerateFinalBar({
               </button>
             </div>
             <Dialog.Description className={styles.dialogDescription}>
-              HarborFM will zip this project, upload it to your archive destination, verify the
+              ONI Studio will zip this project, upload it to your archive destination, verify the
               upload, then remove local segment and recording files. Final audio and other
               feed-serving files stay so listeners are unaffected. You can restore the project
               later.

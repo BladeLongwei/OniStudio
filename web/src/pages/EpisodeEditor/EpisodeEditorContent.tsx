@@ -731,6 +731,16 @@ export function EpisodeEditorContent({
   return (
     <div className={styles.page}>
       <Breadcrumb items={breadcrumbItems} />
+      <header className={styles.productionMasthead}>
+        <div><p>ONI STUDIO / EPISODE PRODUCTION</p><h1>Your story, in the making.</h1></div>
+        <span className={styles.productionBadge}>{segments.length} {segments.length === 1 ? 'audio section' : 'audio sections'}</span>
+      </header>
+      <nav className={styles.productionNavigator} aria-label="Episode production sections">
+        <a href="#studio-story"><b>01</b><span><strong>Prepare the story</strong><small>Episode details & show notes</small></span></a>
+        <a href="#studio-audio"><b>02</b><span><strong>Shape the sound</strong><small>Record, arrange & edit audio</small></span></a>
+        <a href="#studio-release"><b>03</b><span><strong>Make it heard</strong><small>Build, export & publish</small></span></a>
+      </nav>
+      <span id="studio-story" className={styles.productionAnchor} />
       <EpisodeDetailsSummaryCard
         title={episodeForm.title}
         status={episodeForm.status}
@@ -849,6 +859,7 @@ export function EpisodeEditorContent({
         </div>
       )}
       <ShowNotesPanel episodeId={id} canEdit={canEditSegments && !segmentReadOnly} />
+      <span id="studio-audio" className={styles.productionAnchor} />
       {isArchived ? (
         <div className={styles.card}>
           <div className={styles.archivedProjectPanel}>
@@ -954,6 +965,7 @@ export function EpisodeEditorContent({
       </div>
       )}
 
+      <span id="studio-release" className={styles.productionAnchor} />
       <GenerateFinalBar
         episodeId={id}
         podcastId={podcastId}

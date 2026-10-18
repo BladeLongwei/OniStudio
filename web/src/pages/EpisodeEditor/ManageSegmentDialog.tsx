@@ -715,7 +715,7 @@ export function ManageSegmentDialog({
               {showMultiTrackWhisper ? (
                 <div
                   className={styles.hostDuckingSetting}
-                  title="When on, HarborFM transcribes each included host/guest track and merges them. Falls back to the mix when there are fewer than two included tracks."
+                  title="When on, ONI Studio transcribes each included host/guest track and merges them. Falls back to the mix when there are fewer than two included tracks."
                 >
                   <span className={styles.hostDuckingSettingLabel}>
                     Multi-Track Whisper

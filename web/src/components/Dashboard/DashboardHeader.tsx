@@ -15,15 +15,16 @@ export function DashboardHeader({
   return (
     <header className={styles.header}>
       <div className={styles.headerLeft}>
+        <p className={styles.eyebrow}>ONI STUDIO / WORKSPACE</p>
         <h1 className={styles.title}>
-          {isAdminView ? `Podcasts (${selectedUser?.email ?? 'Loading...'})` : 'Your shows'}
+          {isAdminView ? `Podcasts (${selectedUser?.email ?? 'Loading...'})` : 'Studio overview'}
         </h1>
         <p className={styles.subtitle}>
           {total != null
             ? total > 0
-              ? `${total} show${total === 1 ? '' : 's'} · Manage and publish episodes`
-              : 'Manage your shows and publish episodes'
-            : 'Manage your shows and publish episodes'}
+              ? `${total} show${total === 1 ? '' : 's'} · Record, refine, and publish your next episode`
+              : 'Everything you create. One studio.'
+            : 'Everything you create. One studio.'}
         </p>
       </div>
       {!isAdminView && (

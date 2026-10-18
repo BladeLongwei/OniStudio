@@ -171,7 +171,7 @@
 .topicsLink {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   text-decoration: none;
 }
 
@@ -208,7 +208,7 @@
 .dialInAltBody [data-testid='call-join-dial-in-code'] {
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 a.dialInAltNumber {
@@ -219,7 +219,7 @@ a.dialInAltNumber {
 
 a.dialInAltNumber:hover,
 a.dialInAltNumber:focus-visible {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   outline: none;
 }
 
@@ -239,8 +239,8 @@ a.dialInAltNumber:focus-visible {
 }
 
 .micSettingsToggle:hover {
-  color: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .micSettingsOverlay {
@@ -305,7 +305,7 @@ a.dialInAltNumber:focus-visible {
 }
 
 .micSettingsPopoverClose:focus-visible {
-  outline: 2px solid var(--accent, #00d4aa);
+  outline: 2px solid var(--accent, #e31837);
   outline-offset: 2px;
 }
 
@@ -321,7 +321,7 @@ a.dialInAltNumber:focus-visible {
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -332,7 +332,7 @@ a.dialInAltNumber:focus-visible {
 }
 
 .micSettingsDone:focus-visible {
-  outline: 2px solid var(--accent, #00d4aa);
+  outline: 2px solid var(--accent, #e31837);
   outline-offset: 2px;
 }
 
@@ -375,7 +375,7 @@ a.dialInAltNumber:focus-visible {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -384,7 +384,7 @@ a.dialInAltNumber:focus-visible {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -439,8 +439,8 @@ a.dialInAltNumber:focus-visible {
   padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
   color: var(--text, #e5e5e5);
-  background: rgba(0, 212, 170, 0.1);
-  border: 1px solid rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.1);
+  border: 1px solid rgba(227, 24, 55, 0.35);
   border-radius: 6px;
 }
 
@@ -480,8 +480,8 @@ a.dialInAltNumber:focus-visible {
 }
 
 .showNotesBtn:hover {
-  border-color: var(--accent, #00d4aa);
-  color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
+  color: var(--accent, #e31837);
 }
 
 .showNotesOverlay {
@@ -575,9 +575,9 @@ a.dialInAltNumber:focus-visible {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   padding: 0.15rem 0.4rem;
-  background: rgba(0, 212, 170, 0.12);
+  background: rgba(227, 24, 55, 0.12);
   border-radius: 4px;
 }
 
@@ -599,7 +599,7 @@ a.dialInAltNumber:focus-visible {
   font-size: 0.9375rem;
   font-weight: 600;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: var(--radius, 8px);
   cursor: pointer;
@@ -655,8 +655,8 @@ a.dialInAltNumber:focus-visible {
   padding: 0.75rem 0.875rem;
   text-align: center;
   color: var(--text, #e5e5e5);
-  background: rgba(0, 212, 170, 0.08);
-  border: 1px solid rgba(0, 212, 170, 0.35);
+  background: rgba(227, 24, 55, 0.08);
+  border: 1px solid rgba(227, 24, 55, 0.35);
   border-radius: 6px;
 }
 
@@ -699,7 +699,7 @@ a.dialInAltNumber:focus-visible {
 .input:focus,
 .select:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .input.inputRequired {
@@ -717,7 +717,7 @@ a.dialInAltNumber:focus-visible {
   font-size: 1rem;
   font-weight: 600;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -747,7 +747,7 @@ a.dialInAltNumber:focus-visible {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -758,7 +758,7 @@ a.dialInAltNumber:focus-visible {
 }
 
 .listenBtn[aria-pressed="true"] {
-  background: var(--accent-dim, #00a884);
+  background: var(--accent-dim, #be122c);
 }
 
 .micTestHint {
@@ -785,7 +785,7 @@ a.dialInAltNumber:focus-visible {
 
 .micLevelBar {
   height: 100%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border-radius: 3px;
   transition: width 0.1s ease;
 }
@@ -845,8 +845,8 @@ a.dialInAltNumber:focus-visible {
 }
 
 .participantCard[data-host] {
-  border-color: rgba(0, 212, 170, 0.3);
-  background: rgba(0, 212, 170, 0.06);
+  border-color: rgba(227, 24, 55, 0.3);
+  background: rgba(227, 24, 55, 0.06);
 }
 
 .participantCard[data-my-participant] {
@@ -875,7 +875,7 @@ a.dialInAltNumber:focus-visible {
 }
 
 .participantCard[data-host] .participantRoleIcon {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .participantInfo {
@@ -924,8 +924,8 @@ a.dialInAltNumber:focus-visible {
 }
 
 .editNameBtn:hover {
-  color: var(--accent, #00d4aa);
-  border-color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
+  border-color: var(--accent, #e31837);
 }
 
 .nameEditRow {
@@ -946,13 +946,13 @@ a.dialInAltNumber:focus-visible {
 
 .nameInput:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .checkBtn {
   padding: 0.25rem;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 4px;
   cursor: pointer;

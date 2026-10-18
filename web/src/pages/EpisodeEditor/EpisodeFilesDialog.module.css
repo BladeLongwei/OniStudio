@@ -226,7 +226,7 @@
 }
 
 .primaryBtn {
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border-color: var(--accent);
 }

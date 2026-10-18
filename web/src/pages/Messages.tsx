@@ -57,7 +57,8 @@ export function Messages() {
   return (
     <div className={styles.messages}>
       <div className={styles.head}>
-        <h1 className={styles.title}>Messages</h1>
+        <p className="oni-workspace-eyebrow">ONI STUDIO / CREATOR CONNECTIONS</p>
+          <h1 className={styles.title}>Messages</h1>
       </div>
       <div className={styles.bar}>
         <input

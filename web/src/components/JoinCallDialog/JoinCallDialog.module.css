@@ -150,7 +150,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);

@@ -235,7 +235,7 @@ export function StripeSubscriptionsSection({
 
       <p className={styles.pdCardSectionSub}>
         Active paid listeners for this show. Open a subscription in Stripe, disable
-        auto-renew, or remove a local row if HarborFM and Stripe got out of sync.
+        auto-renew, or remove a local row if ONI Studio and Stripe got out of sync.
       </p>
 
       {(total > 0 || searchDebounced) && (
@@ -397,7 +397,7 @@ export function StripeSubscriptionsSection({
         title="Delete local subscription?"
         description={
           pendingDelete
-            ? `Remove the HarborFM record for ${
+            ? `Remove the ONI Studio record for ${
                 pendingDelete.customerEmail?.trim() || 'this listener'
               }? This disables their feed token and does not cancel or refund in Stripe.`
             : ''

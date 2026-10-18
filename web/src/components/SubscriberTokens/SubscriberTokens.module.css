@@ -72,9 +72,9 @@
   padding: 0.5rem 0.875rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #00d4aa !important;
-  background: rgba(0, 212, 170, 0.08) !important;
-  border: 1px solid rgba(0, 212, 170, 0.25) !important;
+  color: #e31837 !important;
+  background: rgba(227, 24, 55, 0.08) !important;
+  border: 1px solid rgba(227, 24, 55, 0.25) !important;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -82,9 +82,9 @@
 }
 
 .createTokenBtn:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14) !important;
-  border-color: rgba(0, 212, 170, 0.45) !important;
-  color: #00d4aa !important;
+  background: rgba(227, 24, 55, 0.14) !important;
+  border-color: rgba(227, 24, 55, 0.45) !important;
+  color: #e31837 !important;
 }
 
 .createTokenBtn:disabled {
@@ -100,9 +100,9 @@
   padding: 0.5rem 0.875rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #00d4aa !important;
-  background: rgba(0, 212, 170, 0.08) !important;
-  border: 1px solid rgba(0, 212, 170, 0.25) !important;
+  color: #e31837 !important;
+  background: rgba(227, 24, 55, 0.08) !important;
+  border: 1px solid rgba(227, 24, 55, 0.25) !important;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -110,9 +110,9 @@
 }
 
 .tokenActionBtn:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14) !important;
-  border-color: rgba(0, 212, 170, 0.45) !important;
-  color: #00d4aa !important;
+  background: rgba(227, 24, 55, 0.14) !important;
+  border-color: rgba(227, 24, 55, 0.45) !important;
+  color: #e31837 !important;
 }
 
 .tokenActionBtn:disabled {
@@ -162,7 +162,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #0c0e12 !important;
-  background: #00d4aa !important;
+  background: #e31837 !important;
   border: none !important;
   border-radius: 8px;
   cursor: pointer;
@@ -170,7 +170,7 @@
 }
 
 .tokenExtendSave:hover:not(:disabled) {
-  background: #00a884 !important;
+  background: #be122c !important;
   color: #0c0e12 !important;
 }
 
@@ -332,12 +332,12 @@
 
 .tokenSortBtnActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
 .tokenSortBtnActive:hover {
   background: var(--accent-dim);
-  color: var(--bg);
+  color: #fff;
 }
 
 /* Token Pagination */
@@ -437,7 +437,7 @@
 }
 
 .tokenDeleteBtn:hover:not(:disabled) {
-  color: var(--bg);
+  color: #fff;
   background: var(--error, #c53030);
 }
 
@@ -502,18 +502,18 @@
   padding: 0.5rem 0.875rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #00d4aa !important;
-  background: rgba(0, 212, 170, 0.08) !important;
-  border: 1px solid rgba(0, 212, 170, 0.25) !important;
+  color: #e31837 !important;
+  background: rgba(227, 24, 55, 0.08) !important;
+  border: 1px solid rgba(227, 24, 55, 0.25) !important;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .tokenCreatedCopyBtn:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14) !important;
-  border-color: rgba(0, 212, 170, 0.45) !important;
-  color: #00d4aa !important;
+  background: rgba(227, 24, 55, 0.14) !important;
+  border-color: rgba(227, 24, 55, 0.45) !important;
+  color: #e31837 !important;
 }
 
 .tokenCreatedDismissBtn {
@@ -588,18 +588,18 @@
   padding: 0.5rem 0.875rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #00d4aa !important;
-  background: rgba(0, 212, 170, 0.08) !important;
-  border: 1px solid rgba(0, 212, 170, 0.25) !important;
+  color: #e31837 !important;
+  background: rgba(227, 24, 55, 0.08) !important;
+  border: 1px solid rgba(227, 24, 55, 0.25) !important;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .subscriberEnableBtn:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14) !important;
-  border-color: rgba(0, 212, 170, 0.45) !important;
-  color: #00d4aa !important;
+  background: rgba(227, 24, 55, 0.14) !important;
+  border-color: rgba(227, 24, 55, 0.45) !important;
+  color: #e31837 !important;
 }
 
 .subscriberEnableBtn:disabled {
@@ -616,16 +616,16 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #0c0e12 !important;
-  background: #00d4aa !important;
-  border: 1px solid #00d4aa !important;
+  background: #e31837 !important;
+  border: 1px solid #e31837 !important;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .subscriberDialogConfirmBtn:hover:not(:disabled) {
-  background: #00a884 !important;
-  border-color: #00a884 !important;
+  background: #be122c !important;
+  border-color: #be122c !important;
   color: #0c0e12 !important;
 }
 

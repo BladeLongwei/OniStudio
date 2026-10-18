@@ -102,7 +102,7 @@
   padding: 0.75rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border-radius: var(--radius);
   text-decoration: none;
@@ -253,7 +253,7 @@
 }
 .itemLink:hover {
   border-color: var(--accent);
-  background: rgba(0, 212, 170, 0.06);
+  background: rgba(227, 24, 55, 0.06);
   text-decoration: none;
   color: inherit;
 }
@@ -320,3 +320,7 @@
   font-size: 0.875rem;
   color: var(--text-muted);
 }
+
+.card { background: #131316; border-radius: 12px; box-shadow: none; }
+.cardHeader { padding-bottom: 22px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.cardTitle { font-weight: 500; letter-spacing: -.035em; font-size: 1.8rem; }

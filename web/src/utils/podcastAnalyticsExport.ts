@@ -36,7 +36,7 @@ const METRIC_DEFINITIONS = {
   listeners: 'Human clients (human_count).',
   crawlers: 'Bots and directory crawlers (bot_count).',
   retention:
-    'Website player playhead reach by decile on the HarborFM site or theme player.',
+    'Website player playhead reach by decile on the ONI Studio site or theme player.',
 } as const;
 
 const CSV_COLUMNS = [
@@ -363,7 +363,7 @@ export async function downloadAnalyticsExcel(
 ): Promise<void> {
   const ExcelJS = await import('exceljs');
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'HarborFM';
+  workbook.creator = 'ONI Studio';
   workbook.created = new Date();
 
   const meta = buildExportMeta(podcast, range, analytics);

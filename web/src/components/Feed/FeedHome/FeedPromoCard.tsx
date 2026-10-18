@@ -22,7 +22,7 @@ export function FeedPromoCard() {
         <div className={styles.promoTextContent}>
           <h2 className={styles.promoTitle}>Create Your Own Podcast</h2>
           <p className={styles.promoText}>
-            Start your podcasting journey with HarborFM. Upload, edit, and share your episodes with the world.
+            Start your podcasting journey with ONI Studio. Upload, edit, and share your episodes with the world.
           </p>
         </div>
         <Link to="/login" className={styles.promoButton}>

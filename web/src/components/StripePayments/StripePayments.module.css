@@ -60,7 +60,7 @@
   padding: 0.6rem 1.1rem;
   border: none;
   border-radius: var(--radius);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   color: #0c0e12;
   font-size: 0.9375rem;
   font-weight: 600;
@@ -128,7 +128,7 @@
 }
 
 .deleteIconBtn:hover:not(:disabled) {
-  color: var(--bg);
+  color: #fff;
   background: var(--error, #c53030);
 }
 
@@ -353,8 +353,8 @@
 
 .verifyBannerOk {
   color: var(--text);
-  background: color-mix(in srgb, var(--accent, #00d4aa) 14%, var(--bg));
-  border-color: color-mix(in srgb, var(--accent, #00d4aa) 35%, var(--border));
+  background: color-mix(in srgb, var(--accent, #e31837) 14%, var(--bg));
+  border-color: color-mix(in srgb, var(--accent, #e31837) 35%, var(--border));
 }
 
 .verifyBannerFail {
@@ -397,7 +397,7 @@
 }
 
 .verifyIconOk {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .verifyIconFail {
@@ -470,7 +470,7 @@
   letter-spacing: 0.02em;
   line-height: 1.2;
   color: #0c0e12;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
 }
 
 .permissionInfoWrap {

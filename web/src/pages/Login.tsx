@@ -153,13 +153,20 @@ export function Login() {
   return (
     <main>
       <div className={styles.wrap}>
+        <section className={styles.studioIntro} aria-label="About ONI Studio">
+          <p className={styles.eyebrow}>ONYX INTERACTIVE NETWORK</p>
+          <h2>Your voice.<br />Our studio.</h2>
+          <p>A dedicated workspace to record conversations, shape your stories, and publish something worth hearing.</p>
+          <div className={styles.studioCapabilities}><span>01 / Record</span><span>02 / Produce</span><span>03 / Publish</span></div>
+          <small>Built together. Stronger together.</small>
+        </section>
         <div className={styles.card}>
         <div className={styles.brand}>
-          <img src="/favicon.svg" alt="" className={styles.brandIcon} />
-          <h1 className={styles.title}>HarborFM</h1>
+          <img src="/oni-mark.svg" alt="" className={styles.brandIcon} />
+          <h1 className={styles.title}>ONI Studio</h1>
         </div>
         <div className={styles.loginHeader}>
-          <h2 className={styles.setupHeaderTitle}>Sign in to your account</h2>
+          <h2 className={styles.setupHeaderTitle}>Welcome to your studio</h2>
         </div>
         <form onSubmit={handleSubmit} className={styles.form}>
           {ssoOnlyNoProviders ? (

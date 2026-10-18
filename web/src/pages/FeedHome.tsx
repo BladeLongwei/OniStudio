@@ -62,8 +62,8 @@ export function FeedHome() {
   }, [totalPages]);
 
   useMeta({
-    title: 'Podcasts - HarborFM',
-    description: 'Browse all podcasts on HarborFM.',
+    title: 'Podcasts - ONI Studio',
+    description: 'Browse all podcasts on ONI Studio.',
   });
 
   return (

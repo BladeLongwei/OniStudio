@@ -16,6 +16,8 @@ import {
   ImportPodcastCard,
   DashboardEmptyState,
 } from '../components/Dashboard';
+import { StudioRecentEpisodes } from '../components/Dashboard/StudioRecentEpisodes';
+import { StudioOverview } from '../components/Dashboard/StudioOverview';
 import { JoinCallDialog } from '../components/JoinCallDialog';
 import { FailedToLoadCard } from '../components/FailedToLoadCard';
 import styles from './Dashboard.module.css';
@@ -128,6 +130,10 @@ export function Dashboard() {
         onJoinCallClick={() => setJoinCallDialogOpen(true)}
       />
 
+      {!isError && <StudioOverview account={meData} total={total} podcasts={podcasts} readOnly={readOnly} isAdminView={isAdminView} />}
+
+      {!isAdminView && !isError && <StudioRecentEpisodes podcasts={podcasts} />}
+      <div className={styles.collectionHeading}><h2>Your shows</h2><span>Each show. Its own identity.</span></div>
       {isError && <FailedToLoadCard title="Failed to load podcasts" />}
 
       {!isError && (

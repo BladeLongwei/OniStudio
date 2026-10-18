@@ -46,7 +46,7 @@
 
 .iconBtn:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .title {
@@ -106,7 +106,7 @@
 }
 
 .messageLink {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
   text-decoration: underline;
   word-break: break-all;
 }
@@ -162,7 +162,7 @@
 
 .clearImageBtn:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .composeError {
@@ -198,7 +198,7 @@
 
 .attachBtn:hover:not(:disabled) {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .attachBtn:disabled {
@@ -224,7 +224,7 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .sendBtn {
@@ -236,8 +236,8 @@
   font-size: 0.8125rem;
   font-weight: 500;
   color: #000;
-  background: var(--accent, #00d4aa);
-  border: 1px solid var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
+  border: 1px solid var(--accent, #e31837);
   border-radius: 6px;
   cursor: pointer;
 }

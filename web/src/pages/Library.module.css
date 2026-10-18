@@ -39,7 +39,7 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(0, 212, 170, 0.08), rgba(0, 0, 0, 0)) , var(--bg-elevated);
+  background: linear-gradient(135deg, rgba(227, 24, 55, 0.08), rgba(0, 0, 0, 0)) , var(--bg-elevated);
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   margin-bottom: 1.5rem;
@@ -51,7 +51,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(120deg, rgba(0, 212, 170, 0.5), rgba(0, 0, 0, 0));
+  background: linear-gradient(120deg, rgba(227, 24, 55, 0.5), rgba(0, 0, 0, 0));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -175,7 +175,7 @@
   border-radius: var(--radius);
   border: none;
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s ease, box-shadow 0.15s ease;
@@ -255,7 +255,7 @@
 
 .sortBtnActive {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
   box-shadow: 0 0 16px var(--accent-glow);
 }
 
@@ -612,8 +612,8 @@
 }
 
 .dialogClose:hover:not(:disabled) {
-  background: rgba(0, 212, 170, 0.14);
-  border-color: rgba(0, 212, 170, 0.45);
+  background: rgba(227, 24, 55, 0.14);
+  border-color: rgba(227, 24, 55, 0.45);
   color: var(--text);
 }
 
@@ -743,7 +743,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: var(--radius);
@@ -809,3 +809,10 @@
     min-width: 120px;
   }
 }
+
+.header { border-bottom: 1px solid var(--border); padding-bottom: 28px; margin-bottom: 28px; }
+.title { font-size: clamp(1.7rem,3vw,2.4rem); font-weight: 500; letter-spacing: -.045em; }
+.uploadCard { background: #141418; border-radius: 12px; box-shadow: none; padding: 26px; }
+.uploadCard::before { display: none; }
+.uploadTitle { font-weight: 500; }
+.controls { background: #121215; padding: 16px; border: 1px solid var(--border); border-radius: 10px; }

@@ -101,7 +101,7 @@
   padding: 0.5rem 1rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--bg);
+  color: #fff;
   background: var(--accent);
   border: none;
   border-radius: var(--radius);
@@ -110,7 +110,7 @@
 }
 
 .writeBtn:hover {
-  background: var(--accent-dim, #00a884);
+  background: var(--accent-dim, #be122c);
 }
 
 .list {

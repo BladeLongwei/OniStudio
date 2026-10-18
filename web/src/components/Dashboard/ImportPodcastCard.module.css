@@ -4,7 +4,7 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(0, 212, 170, 0.08), rgba(0, 0, 0, 0)), var(--bg-elevated);
+  background: linear-gradient(135deg, rgba(227, 24, 55, 0.08), rgba(0, 0, 0, 0)), var(--bg-elevated);
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   margin-bottom: 1.5rem;
@@ -16,7 +16,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(120deg, rgba(0, 212, 170, 0.5), rgba(0, 0, 0, 0));
+  background: linear-gradient(120deg, rgba(227, 24, 55, 0.5), rgba(0, 0, 0, 0));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -68,8 +68,8 @@
 }
 
 .importCardBtn:hover:not(:disabled) {
-  border-color: rgba(0, 212, 170, 0.45);
-  background: rgba(0, 212, 170, 0.08);
+  border-color: rgba(227, 24, 55, 0.45);
+  background: rgba(227, 24, 55, 0.08);
   color: var(--accent);
 }
 
@@ -87,3 +87,6 @@
     width: 100%;
   }
 }
+
+.importCard { background: transparent; box-shadow: none; border-style: dashed; margin-top: 28px; padding: 24px; }
+.importCard::before { display: none; }

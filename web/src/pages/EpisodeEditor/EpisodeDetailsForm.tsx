@@ -506,7 +506,7 @@ export function EpisodeDetailsForm({
               placeholder="e.g. https://www.youtube.com/watch?v=..."
             />
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem', marginLeft: '0' }}>
-              If set, the public episode page embeds this YouTube video instead of HarborFM video, and it is added as a Podcast 2.0 content link.
+              If set, the public episode page embeds this YouTube video instead of ONI Studio video, and it is added as a Podcast 2.0 content link.
             </p>
           </label>
         </div>

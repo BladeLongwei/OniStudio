@@ -12,17 +12,17 @@
   margin-bottom: 1rem;
   padding: 1rem 1.1rem 1.05rem;
   border-radius: calc(var(--radius) + 2px);
-  border: 1px solid color-mix(in srgb, var(--accent, #00d4aa) 28%, var(--border));
+  border: 1px solid color-mix(in srgb, var(--accent, #e31837) 28%, var(--border));
   background:
     radial-gradient(
       120% 140% at 100% 100%,
-      color-mix(in srgb, var(--accent, #00d4aa) 18%, transparent),
+      color-mix(in srgb, var(--accent, #e31837) 18%, transparent),
       transparent 55%
     ),
     linear-gradient(
       165deg,
       color-mix(in srgb, var(--bg) 70%, var(--bg-elevated) 30%),
-      color-mix(in srgb, var(--bg-elevated) 88%, var(--accent, #00d4aa) 12%)
+      color-mix(in srgb, var(--bg-elevated) 88%, var(--accent, #e31837) 12%)
     );
 }
 
@@ -37,7 +37,7 @@
   font-weight: 650;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--accent, #00d4aa) 75%, var(--text-muted));
+  color: color-mix(in srgb, var(--accent, #e31837) 75%, var(--text-muted));
 }
 
 .listStatsTotal {
@@ -69,9 +69,9 @@
 }
 
 .listStatLive {
-  border-color: color-mix(in srgb, var(--accent, #00d4aa) 42%, var(--border));
-  background: color-mix(in srgb, var(--bg) 55%, var(--accent, #00d4aa) 12%);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent, #00d4aa) 18%, transparent);
+  border-color: color-mix(in srgb, var(--accent, #e31837) 42%, var(--border));
+  background: color-mix(in srgb, var(--bg) 55%, var(--accent, #e31837) 12%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent, #e31837) 18%, transparent);
 }
 
 .listStatValue {
@@ -84,7 +84,7 @@
 }
 
 .listStatLive .listStatValue {
-  color: color-mix(in srgb, var(--accent, #00d4aa) 82%, var(--text));
+  color: color-mix(in srgb, var(--accent, #e31837) 82%, var(--text));
 }
 
 .listStatLabel {
@@ -132,7 +132,7 @@
 }
 
 .plansSettingHint a {
-  color: var(--accent, #00d4aa);
+  color: var(--accent, #e31837);
 }
 
 .segmented {
@@ -218,7 +218,7 @@
   padding: 0.55rem 1rem;
   border: none;
   border-radius: var(--radius);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   color: #0c0e12;
   font-size: 0.875rem;
   font-weight: 600;

@@ -11,7 +11,7 @@ marked.setOptions({ gfm: true, breaks: true });
 const DEFAULT_TERMS = (
   <>
     <p>
-      Welcome to HarborFM. By using this service, you agree to these terms. HarborFM is open-source software;
+      Welcome to ONI Studio. By using this service, you agree to these terms. ONI Studio is built on HarborFM, open-source software;
       this instance is operated by the server administrator.
     </p>
     <h2>Use of the service</h2>

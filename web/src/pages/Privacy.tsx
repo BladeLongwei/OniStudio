@@ -11,8 +11,8 @@ marked.setOptions({ gfm: true, breaks: true });
 const DEFAULT_PRIVACY = (
   <>
     <p>
-      HarborFM is an open-source podcast creator. This privacy policy describes how your data is handled when
-      you use a HarborFM instance.
+      ONI Studio is a podcast creation platform built on the open-source HarborFM project. This privacy policy describes how your data is handled when
+      you use this ONI Studio instance.
     </p>
     <h2>Data we collect and use</h2>
     <p>
@@ -31,7 +31,7 @@ const DEFAULT_PRIVACY = (
     </p>
     <h2>Who operates this instance</h2>
     <p>
-      This HarborFM server is operated by the administrator of this instance. Data is stored on their
+      This ONI Studio server is operated by the administrator of this instance. Data is stored on their
       infrastructure and is subject to their policies and applicable law. For questions about this instance,
       contact the server administrator.
     </p>

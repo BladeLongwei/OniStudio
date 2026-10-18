@@ -41,7 +41,7 @@
 
 .iconBtn:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .title {
@@ -76,7 +76,7 @@
 
 .closeBtnEmbedded:hover {
   color: var(--text, #e5e5e5);
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .closeBtnEmbedded:active {
@@ -162,7 +162,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -171,7 +171,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -207,7 +207,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--bg, #0c0e12);
-  background: var(--accent, #00d4aa);
+  background: var(--accent, #e31837);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -223,7 +223,7 @@
 }
 
 .listenBtn[aria-pressed="true"] {
-  background: var(--accent-dim, #00a884);
+  background: var(--accent-dim, #be122c);
 }
 
 .label {
@@ -244,7 +244,7 @@
 
 .select:focus {
   outline: none;
-  border-color: var(--accent, #00d4aa);
+  border-color: var(--accent, #e31837);
 }
 
 .emptyHint {

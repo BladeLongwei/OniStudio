@@ -1,0 +1,10 @@
+# Preserve the exact live ONI runtime and frontend; apply only the display fix.
+# Pass an immutable local tag of the currently running container image.
+ARG STUDIO_BASE_IMAGE
+FROM ${STUDIO_BASE_IMAGE}
+USER root
+COPY scripts/patch-collaborator-labels.mjs /tmp/patch-collaborator-labels.mjs
+RUN node /tmp/patch-collaborator-labels.mjs \
+    && node --check /app/server/dist/modules/podcasts/routes.collaborators.js \
+    && rm /tmp/patch-collaborator-labels.mjs
+USER appuser
