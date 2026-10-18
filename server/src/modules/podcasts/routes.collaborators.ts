@@ -37,7 +37,7 @@ export async function registerCollaboratorRoutes(app: FastifyInstance) {
           userId: podcastShares.userId,
           role: podcastShares.role,
           createdAt: podcastShares.createdAt,
-          username: users.username,
+          username: sql<string>`COALESCE(NULLIF(TRIM(${users.username}), ''), ${users.email})`,
         })
         .from(podcastShares)
         .innerJoin(users, eq(users.id, podcastShares.userId))
@@ -196,7 +196,7 @@ export async function registerCollaboratorRoutes(app: FastifyInstance) {
           userId: podcastShares.userId,
           role: podcastShares.role,
           createdAt: podcastShares.createdAt,
-          username: users.username,
+          username: sql<string>`COALESCE(NULLIF(TRIM(${users.username}), ''), ${users.email})`,
         })
         .from(podcastShares)
         .innerJoin(users, eq(users.id, podcastShares.userId))
@@ -289,7 +289,7 @@ export async function registerCollaboratorRoutes(app: FastifyInstance) {
           userId: podcastShares.userId,
           role: podcastShares.role,
           createdAt: podcastShares.createdAt,
-          username: users.username,
+          username: sql<string>`COALESCE(NULLIF(TRIM(${users.username}), ''), ${users.email})`,
         })
         .from(podcastShares)
         .innerJoin(users, eq(users.id, podcastShares.userId))
